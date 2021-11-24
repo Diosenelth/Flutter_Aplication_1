@@ -6,11 +6,11 @@ import 'package:flip_box_bar/flip_box_bar.dart';
 
 class Social extends StatefulWidget {
   @override
-  State<StatefulWidget> createState()=>_pageState();
+  State<StatefulWidget> createState()=>_PageState();
 }
 
 
-class _pageState extends State<Social> {
+class _PageState extends State<Social> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -39,7 +39,7 @@ class _pageState extends State<Social> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Vista Social"),
+        title: const Text("Vista Social"),
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
@@ -132,7 +132,7 @@ TextField textField(bool bool, String texto){
   return TextField(
         obscureText: bool,
         decoration: InputDecoration(
-          border: OutlineInputBorder(),
+          border: const OutlineInputBorder(),
           labelText: texto,
         ),
       );
