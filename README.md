@@ -1,5 +1,7 @@
 # flutter_application_1
 
+--no-sound-null-safety
+
 A new Flutter project.
 
 ## Getting Started
