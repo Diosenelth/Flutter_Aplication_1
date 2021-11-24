@@ -5,7 +5,9 @@ import 'package:flutter_application_1/src/pages/social.dart';
 
 String usuario="",clave="";
 
-class mainLogin extends StatelessWidget{
+class MainLogin extends StatelessWidget{
+  const MainLogin({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,11 +21,11 @@ class mainLogin extends StatelessWidget{
       ),
       debugShowCheckedModeBanner: false,
       home: Center(
-        child: login(),
+        child: Login(),
       ),
       routes: {
-        "/social": (_)=>social(),
-        "/registro": (_)=>registro(),
+        "/social": (_)=>Social(),
+        "/registro": (_)=>Registro(),
       },
     );
   }
@@ -31,12 +33,14 @@ class mainLogin extends StatelessWidget{
 }
 
 
-class login extends StatefulWidget {
+class Login extends StatefulWidget {
+  const Login({Key? key}) : super(key: key);
+
   @override
-  State<StatefulWidget> createState() => _pageState();
+  State<StatefulWidget> createState() => _PageState();
 }
 
-class _pageState extends State<login> {
+class _PageState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     
@@ -59,7 +63,7 @@ class _pageState extends State<login> {
                 child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: _TextFields(),
+                children: _textFields(),
               ),
               )
             ],
@@ -72,7 +76,7 @@ class _pageState extends State<login> {
   
   }
 
-  List<Widget> _TextFields(){
+  List<Widget> _textFields(){
     return [
       // texto("Usuario"),
       // textField(false,'Usuario'),

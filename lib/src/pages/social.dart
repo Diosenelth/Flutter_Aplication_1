@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 
 
+import 'package:flip_box_bar/flip_box_bar.dart';
 
-class social extends StatefulWidget {
+
+class Social extends StatefulWidget {
   @override
   State<StatefulWidget> createState()=>_pageState();
 }
 
 
-class _pageState extends State<social> {
+class _pageState extends State<Social> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -43,25 +45,45 @@ class _pageState extends State<social> {
         child: _widgetOptions.elementAt(_selectedIndex),
         ),
 
-        bottomNavigationBar: BottomNavigationBar (
+        bottomNavigationBar:
+        FlipBoxBar(
+            selectedIndex: _selectedIndex,
+          items:[
+            FlipBarItem(icon: const Icon(Icons.notifications),
+             text: const Text("Actividades"),frontColor: Colors.red[900],
+               backColor: Colors.red[500]),
+            FlipBarItem(icon: const Icon(Icons.add),
+             text: const Text("Social"), frontColor: Colors.blue[900],
+              backColor: Colors.blue[500]),
+            FlipBarItem(icon: const Icon(Icons.chrome_reader_mode),
+             text: const Text("Estados"), frontColor: Colors.purple[900],
+              backColor: Colors.purple[500]),
+            FlipBarItem(icon: const Icon(Icons.print),
+             text: const Text("Menu"), frontColor: Colors.pink[900],
+              backColor: Colors.pink[500]),
+          ],
+           onIndexChanged: _onItemTapped,
+        ),
+/*
+         BottomNavigationBar (
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.notifications),
+              icon: const Icon(Icons.notifications),
               label: "Actividades",
               backgroundColor:Colors.red[900],
               ),
               BottomNavigationBarItem(
-              icon: Icon(Icons.done),
+              icon: const Icon(Icons.done),
               label: "Social",
               backgroundColor:Colors.blue[800],
               ),
               BottomNavigationBarItem(
-              icon: Icon(Icons.edit),
+              icon: const Icon(Icons.edit),
               label: "Estados",
               backgroundColor:Colors.purple[800],
               ),
               BottomNavigationBarItem(
-              icon: Icon(Icons.menu),
+              icon: const Icon(Icons.menu),
               label: "Menu",
               backgroundColor:Colors.pink[800],
               ),
@@ -70,7 +92,7 @@ class _pageState extends State<social> {
           selectedItemColor: Colors.amber[800],
           unselectedItemColor: Colors.black,
           onTap: _onItemTapped,
-          ),
+          ),*/
   );
 }
 

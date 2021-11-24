@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 
 String usuario="",clave="", Correo="";
 
-class registro extends StatefulWidget {
+class Registro extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _pageState();
 }
 
-class _pageState extends State<registro> {
+class _pageState extends State<Registro> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
