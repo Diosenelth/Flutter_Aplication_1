@@ -1,6 +1,6 @@
 # flutter_application_1
 
---no-sound-null-safety
+ejecutar con ->    --no-sound-null-safety
 
 A new Flutter project.
 
