@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/controllers/email_controller.dart';
 import 'package:flutter_application_1/src/pages/registro.dart';
 import 'package:flutter_application_1/src/pages/social.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
-String usuario="",clave="";
+EmailController emailController=Get.find();
 
 class MainLogin extends StatelessWidget{
   const MainLogin({Key? key}) : super(key: key);
@@ -22,13 +23,9 @@ class MainLogin extends StatelessWidget{
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: Center(
+      home: const Center(
         child: Login(),
       ),
-      routes: {
-        "/social": (_)=>Social(),
-        "/registro": (_)=>Registro(),
-      },
     );
   }
 
@@ -48,20 +45,16 @@ class _PageState extends State<Login> {
     
     return Scaffold(
         appBar: AppBar(
-          title: Text("Iniciar sesion"),
+          title: const Text("Iniciar sesion"),
         ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 50),
-              // Text(
-              //   "Iniciar Sesion",style:TextStyle(fontSize: 30),
-              //   textAlign: TextAlign.start,
-              // ),
+              const SizedBox(height: 50),
               Container(
-                padding: EdgeInsets.all(30.0),
+                padding: const EdgeInsets.all(30.0),
                 child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,9 +64,6 @@ class _PageState extends State<Login> {
             ],
           ),
           ),
-      // routes: {
-      //   "/social": (context)=>social(),
-      // },
     );
   
   }
@@ -82,13 +72,15 @@ class _PageState extends State<Login> {
     return [
       // texto("Usuario"),
       // textField(false,'Usuario'),
-      SizedBox(height: 10),
+      const SizedBox(height: 10),
       texto("Correo Electronico"),
-      textField(false,'Correo electronico'),
-      SizedBox(height: 10),
+      const SizedBox(height: 10),      
+      emailField(false,'Correo electronico'),
+      const SizedBox(height: 10),
       texto("Contraseña"),
-      textField(true,'Contraseña'),
-      SizedBox(height: 20),
+      const SizedBox(height: 10),
+      passField(true,'Contraseña'),
+      const SizedBox(height: 20),
       
       _crearBotones()
     ];
@@ -98,17 +90,41 @@ class _PageState extends State<Login> {
     return Text(
         texto,
         textAlign: TextAlign.justify,
-         style: TextStyle(fontSize: 25),
+         style: const TextStyle(fontSize: 25),
          );
   }
 
-TextField textField(bool bool, String texto){
+TextField emailField(bool bool, String texto){
+  return TextField(
+        keyboardType: TextInputType.emailAddress,
+        obscureText: bool,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          labelText: texto,
+          icon: const Icon(Icons.account_circle)
+        ),
+       
+        onChanged: (valor){
+                    emailController.correo(valor);
+                  
+        },
+      );
+}
+
+TextField passField(bool bool, String texto){
   return TextField(
         obscureText: bool,
         decoration: InputDecoration(
-          border: OutlineInputBorder(),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
           labelText: texto,
+          counter: Obx(()=>Text('${emailController.getPass.length.toString()}')),
+          icon:  const Icon(Icons.password),
         ),
+        onChanged: (valor)=>emailController.pass(valor),
       );
 }
 
@@ -117,7 +133,7 @@ TextField textField(bool bool, String texto){
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
       elevatedButton("Iniciar"),
-      SizedBox(width: 8.0),
+      const SizedBox(width: 8.0),
       elevatedButton('Registrarse'),
     ],
     );

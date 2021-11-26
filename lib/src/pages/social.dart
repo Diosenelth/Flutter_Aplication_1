@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 
 
 import 'package:flip_box_bar/flip_box_bar.dart';
+import 'package:flutter_application_1/controllers/email_controller.dart';
+import 'package:get/get.dart';
+
 
 
 class Social extends StatefulWidget {
+  const Social({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState()=>_PageState();
 }
@@ -37,9 +42,11 @@ class _PageState extends State<Social> {
 
   @override
   Widget build(BuildContext context) {
+    EmailController emailController=Get.find();
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Vista Social"),
+        title: Text('Social de ${emailController.getEmail.toString()}'),
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),

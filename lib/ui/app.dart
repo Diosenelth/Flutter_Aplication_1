@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 final conteo=10;
 
-class app extends StatelessWidget{
+class App extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
