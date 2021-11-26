@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/controllers/email_controller.dart';
 import 'package:flutter_application_1/src/pages/registro.dart';
 import 'package:flutter_application_1/src/pages/social.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
@@ -96,6 +97,7 @@ class _PageState extends State<Login> {
 
 TextField emailField(bool bool, String texto){
   return TextField(
+        // controller: TextEditingController()..text = emailtext,    
         keyboardType: TextInputType.emailAddress,
         obscureText: bool,
         decoration: InputDecoration(
@@ -107,8 +109,7 @@ TextField emailField(bool bool, String texto){
         ),
        
         onChanged: (valor){
-                    emailController.correo(valor);
-                  
+          emailController.email(valor);        
         },
       );
 }
@@ -132,10 +133,35 @@ TextField passField(bool bool, String texto){
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-      elevatedButton("Iniciar"),
+      loginButton("Iniciar"),
       const SizedBox(width: 8.0),
       elevatedButton('Registrarse'),
     ],
+    );
+  }
+
+    SizedBox loginButton(String texto){
+    return SizedBox(
+      height: 40.0,
+      width: 120,
+      child:ElevatedButton(
+      onPressed: (){
+        if (emailController.getEmail.isNotEmpty && emailController.getPass.length>=8) {         
+          Get.off(const Social());
+        }else if(!emailController.validaremail()|| emailController.getEmail.isEmpty){
+          Fluttertoast.showToast(
+            msg: 'Email invalido',
+            toastLength: Toast.LENGTH_SHORT,
+          );
+        }else if (emailController.getPass.length<8) {
+          Fluttertoast.showToast(
+            msg: 'Contraseña no segura',
+            toastLength: Toast.LENGTH_SHORT,
+          );
+        }
+      },
+      child: Text(texto)
+      ),
     );
   }
   
@@ -145,11 +171,7 @@ TextField passField(bool bool, String texto){
       width: 120,
       child:ElevatedButton(
       onPressed: (){
-        if (texto=="Iniciar") {
-          Get.off(Social());
-        } else {
-          Get.to(Registro());
-        }
+        Get.to(Registro());      
       },
       child: Text(texto)
       ),

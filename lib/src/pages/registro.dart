@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/controllers/email_controller.dart';
+import 'package:flutter_application_1/controllers/registro_controller.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
-String usuario="",clave="", Correo="";
+RegistroController registroController=Get.find();
+EmailController emailController=Get.find();
 
 class Registro extends StatefulWidget {
   @override
@@ -12,6 +16,7 @@ class Registro extends StatefulWidget {
 class _pageState extends State<Registro> {
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Registrarse"),
@@ -45,13 +50,13 @@ class _pageState extends State<Registro> {
   List<Widget> _TextFields(){
     return [
       texto("Usuario"),
-      textField(false,'Usuario'),
+      usuarioField(false,'Usuario'),
       SizedBox(height: 10),
       texto("Correo Electronico"),
-      textField(false,'Correo electronico'),
+      emailField(false,'Correo electronico'),
       SizedBox(height: 10),
       texto("Contraseña"),
-      textField(true,'Contraseña'),
+      passField(true,'Contraseña'),
       SizedBox(height: 20),
       
       _crearBotones()
@@ -66,23 +71,56 @@ class _pageState extends State<Registro> {
          );
   }
 
-TextField textField(bool bool, String texto){
+TextField usuarioField(bool bool, String texto){
   return TextField(
+        textCapitalization: TextCapitalization.sentences,
         obscureText: bool,
-        decoration: InputDecoration(
-          border: OutlineInputBorder(),
+                decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
           labelText: texto,
+          icon: const Icon(Icons.account_circle)
         ),
+        onChanged: (valor)=>registroController.usuario(valor),
       );
 }
 
+TextField emailField(bool bool, String texto){
+  return TextField(
+    keyboardType: TextInputType.emailAddress,
+        obscureText: bool,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          labelText: texto,
+          icon:  const Icon(Icons.email),
+        ),
+        onChanged: (valor)=>registroController.email(valor),
+      );
+}
+TextField passField(bool bool, String texto){
+  return TextField(
+        obscureText: bool,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          labelText: texto,
+          counter: Obx(()=>Text('${registroController.getPass.length.toString()}')),
+          icon:  const Icon(Icons.password),
+        ),
+        onChanged: (valor)=>registroController.pass(valor),
+      );
+}
   Widget _crearBotones(){
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
       elevatedButton("Iniciar"),
-      SizedBox(width: 8.0),
-      elevatedButton('Registrarse'),
+      const SizedBox(width: 8.0),
+      registerButton('Registrarse'),
     ],
     );
   }
@@ -93,10 +131,40 @@ TextField textField(bool bool, String texto){
       width: 120,
       child:ElevatedButton(
       onPressed: (){
-        if (texto=="Iniciar") {
           Get.back();
-        } else {
+      },
+      child: Text(texto)
+      ),
+    );
+  }
+  
+    SizedBox registerButton(String texto){
+    return SizedBox(
+      height: 40.0,
+      width: 120,
+      child:ElevatedButton(
+      onPressed: (){
+        if (registroController.getUsuario.isNotEmpty && registroController.validarEmail()&&registroController.getPass.length>=8) {
+          // emailController.email(registroController.getEmail);
+          setState(() {
+            
+          });      
           Get.back();
+        }else if (registroController.getUsuario.isEmpty) {
+          Fluttertoast.showToast(
+            msg: 'Usuario vacio',
+            toastLength: Toast.LENGTH_SHORT,
+          );          
+        }else if (!registroController.validarEmail()) {
+          Fluttertoast.showToast(
+            msg: 'Email Invalido',
+            toastLength: Toast.LENGTH_SHORT,
+          );          
+        }else if (registroController.getPass.length<8) {
+          Fluttertoast.showToast(
+            msg: 'Contraseña no segura',
+            toastLength: Toast.LENGTH_SHORT,
+          );          
         }
       },
       child: Text(texto)
