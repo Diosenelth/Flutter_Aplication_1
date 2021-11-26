@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 String usuario="",clave="", Correo="";
 
@@ -93,9 +94,9 @@ TextField textField(bool bool, String texto){
       child:ElevatedButton(
       onPressed: (){
         if (texto=="Iniciar") {
-          Navigator.pop(context);
+          Get.back();
         } else {
-          Navigator.pop(context);
+          Get.back();
         }
       },
       child: Text(texto)

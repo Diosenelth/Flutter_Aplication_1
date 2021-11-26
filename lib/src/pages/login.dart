@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/src/pages/registro.dart';
 import 'package:flutter_application_1/src/pages/social.dart';
+import 'package:get/get.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 String usuario="",clave="";
 
@@ -10,7 +12,7 @@ class MainLogin extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       theme: ThemeData(
         brightness: Brightness.light,
         primarySwatch: Colors.blue,
@@ -128,11 +130,9 @@ TextField textField(bool bool, String texto){
       child:ElevatedButton(
       onPressed: (){
         if (texto=="Iniciar") {
-          Navigator.pushReplacementNamed(context, "/social");
-          // Navigator.push(context, 
-          // MaterialPageRoute(builder: (context)=>social()));
+          Get.off(Social());
         } else {
-          Navigator.pushNamed(context, "/registro");
+          Get.to(Registro());
         }
       },
       child: Text(texto)
