@@ -145,9 +145,8 @@ TextField passField(bool bool, String texto){
       child:ElevatedButton(
       onPressed: (){
         if (registroController.getUsuario.isNotEmpty && registroController.validarEmail()&&registroController.getPass.length>=8) {
-          // emailController.email(registroController.getEmail);
           setState(() {
-            
+          emailController.email(registroController.getEmail);            
           });      
           Get.back();
         }else if (registroController.getUsuario.isEmpty) {

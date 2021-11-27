@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 EmailController emailController=Get.find();
+// TextEditingController _inputEmail= TextEditingController();
 
 class MainLogin extends StatelessWidget{
   const MainLogin({Key? key}) : super(key: key);
@@ -95,9 +96,9 @@ class _PageState extends State<Login> {
          );
   }
 
-TextField emailField(bool bool, String texto){
+  TextField emailField(bool bool, String texto){
   return TextField(
-        // controller: TextEditingController()..text = emailtext,    
+        controller: TextEditingController()..text = emailController.getEmail,    
         keyboardType: TextInputType.emailAddress,
         obscureText: bool,
         decoration: InputDecoration(
@@ -114,7 +115,7 @@ TextField emailField(bool bool, String texto){
       );
 }
 
-TextField passField(bool bool, String texto){
+  TextField passField(bool bool, String texto){
   return TextField(
         obscureText: bool,
         decoration: InputDecoration(
@@ -123,7 +124,7 @@ TextField passField(bool bool, String texto){
           ),
           labelText: texto,
           counter: Obx(()=>Text('${emailController.getPass.length.toString()}')),
-          icon:  const Icon(Icons.password),
+          icon:  const Icon(Icons.lock_open),
         ),
         onChanged: (valor)=>emailController.pass(valor),
       );
@@ -135,12 +136,12 @@ TextField passField(bool bool, String texto){
       children: [
       loginButton("Iniciar"),
       const SizedBox(width: 8.0),
-      elevatedButton('Registrarse'),
+      registerButton('Registrarse'),
     ],
     );
   }
 
-    SizedBox loginButton(String texto){
+  SizedBox loginButton(String texto){
     return SizedBox(
       height: 40.0,
       width: 120,
@@ -165,18 +166,24 @@ TextField passField(bool bool, String texto){
     );
   }
   
-  SizedBox elevatedButton(String texto){
+  SizedBox registerButton(String texto){
     return SizedBox(
       height: 40.0,
       width: 120,
       child:ElevatedButton(
       onPressed: (){
-        Get.to(Registro());      
+        Get.to(Registro())!
+        .then((value){
+          setState(() {
+          });
+        });
       },
       child: Text(texto)
       ),
     );
   }
+
+
 
 
 }
