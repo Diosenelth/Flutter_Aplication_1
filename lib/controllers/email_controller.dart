@@ -1,9 +1,10 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:email_validator/email_validator.dart';
 import 'package:get/get.dart';
 
 class EmailController extends GetxController{
-  var _email="".obs;
-  var _clave="".obs;
+  final _email="".obs;
+  final _clave="".obs;
 
 
   String get getEmail=> _email.value;

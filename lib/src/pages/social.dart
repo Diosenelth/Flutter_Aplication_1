@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:flip_box_bar/flip_box_bar.dart';
 import 'package:flutter_application_1/controllers/email_controller.dart';
 import 'package:get/get.dart';

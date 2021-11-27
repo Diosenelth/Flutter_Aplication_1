@@ -9,17 +9,19 @@ RegistroController registroController=Get.find();
 EmailController emailController=Get.find();
 
 class Registro extends StatefulWidget {
+  const Registro({Key? key}) : super(key: key);
+
   @override
-  State<StatefulWidget> createState() => _pageState();
+  State<StatefulWidget> createState() => _PageState();
 }
 
-class _pageState extends State<Registro> {
+class _PageState extends State<Registro> {
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Registrarse"),
+        title: const Text("Registrarse"),
       ),
       body: Center(
         
@@ -27,17 +29,17 @@ class _pageState extends State<Registro> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             // Text(
             //   "Iniciar Sesion",style:TextStyle(fontSize: 30),
             //   textAlign: TextAlign.start,
             // ),
             Container(
-              padding: EdgeInsets.all(30.0),
+              padding: const EdgeInsets.all(30.0),
               child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: _TextFields(),
+              children: _textFields(),
             ),
             )
           ],
@@ -47,17 +49,17 @@ class _pageState extends State<Registro> {
   );
   }
 
-  List<Widget> _TextFields(){
+  List<Widget> _textFields(){
     return [
       texto("Usuario"),
       usuarioField(false,'Usuario'),
-      SizedBox(height: 10),
+      const SizedBox(height: 10),
       texto("Correo Electronico"),
       emailField(false,'Correo electronico'),
-      SizedBox(height: 10),
+      const SizedBox(height: 10),
       texto("Contraseña"),
       passField(true,'Contraseña'),
-      SizedBox(height: 20),
+      const SizedBox(height: 20),
       
       _crearBotones()
     ];
@@ -67,7 +69,7 @@ class _pageState extends State<Registro> {
     return Text(
         texto,
         textAlign: TextAlign.justify,
-         style: TextStyle(fontSize: 25),
+         style: const TextStyle(fontSize: 25),
          );
   }
 
@@ -108,7 +110,7 @@ TextField passField(bool bool, String texto){
             borderRadius: BorderRadius.circular(15.0),
           ),
           labelText: texto,
-          counter: Obx(()=>Text('${registroController.getPass.length.toString()}')),
+          counter: Obx(()=>Text(registroController.getPass.length.toString())),
           icon:  const Icon(Icons.password),
         ),
         onChanged: (valor)=>registroController.pass(valor),

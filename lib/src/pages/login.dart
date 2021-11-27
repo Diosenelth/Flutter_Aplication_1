@@ -123,7 +123,7 @@ class _PageState extends State<Login> {
             borderRadius: BorderRadius.circular(15.0),
           ),
           labelText: texto,
-          counter: Obx(()=>Text('${emailController.getPass.length.toString()}')),
+          counter: Obx(()=>Text(emailController.getPass.length.toString())),
           icon:  const Icon(Icons.lock_open),
         ),
         onChanged: (valor)=>emailController.pass(valor),
@@ -172,7 +172,7 @@ class _PageState extends State<Login> {
       width: 120,
       child:ElevatedButton(
       onPressed: (){
-        Get.to(Registro())!
+        Get.to(const Registro())!
         .then((value){
           setState(() {
           });

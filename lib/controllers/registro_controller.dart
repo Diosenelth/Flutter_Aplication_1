@@ -1,4 +1,5 @@
 
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:email_validator/email_validator.dart';
 import 'package:get/get.dart';
 
