@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flip_box_bar/flip_box_bar.dart';
 import 'package:flutter_application_1/controllers/email_controller.dart';
 import 'package:get/get.dart';
+import 'package:flutter_application_1/src/pages/menu.dart';
 
 
 
@@ -21,7 +22,7 @@ class _PageState extends State<Social> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   
-  static const List<Widget> _widgetOptions = <Widget>[
+  List<Widget> _widgetOptions = <Widget>[
     Text(
       'Index 0: Actividades',
       style: optionStyle,
@@ -34,10 +35,7 @@ class _PageState extends State<Social> {
       'Index 2: Estados',
       style: optionStyle,
     ),
-    Text(
-      'Index 3: Menu',
-      style: optionStyle,
-    ),
+    menuApp(),
   ];
 
 
