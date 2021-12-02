@@ -19,18 +19,17 @@ class MainLogin extends StatelessWidget{
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (BuildContext context)=>IconDarkTheme(),
-      child: GetMaterialApp(
-        theme: ThemeData(
-          brightness: Brightness.light,
-          primarySwatch: Colors.blue,
-        ),
-        darkTheme: ThemeData(
-          brightness: Brightness.dark,
-          primarySwatch: Colors.blue,
-        ),
-        debugShowCheckedModeBanner: false,
-        home: const Center(
-          child: Login(),
+      child: Consumer<IconDarkTheme>(
+        builder: (context, theme,_)=>
+        GetMaterialApp(
+          theme: ThemeData(
+            brightness: theme.brightness,
+            primarySwatch: Colors.blue,
+          ),
+          debugShowCheckedModeBanner: false,
+          home: const Center(
+            child: Login(),
+          ),
         ),
       ),
     );

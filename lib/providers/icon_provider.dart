@@ -9,12 +9,16 @@ class IconDarkTheme with ChangeNotifier{
   };
 
   Icon _icond=Icon(Icons.wb_sunny);
+  Brightness _brightness= Brightness.light;
 
-  String _icon="";
-  String _icondark="dark";
-String _iconsunny="sunny";
+
+  final String _icondark="dark";
+  final String _iconsunny="sunny";
+  String _icon="sunny";
+
 
   Icon get icon=>_icond;
+  get brightness=>_brightness;
 
 
   seticon(){
@@ -23,8 +27,9 @@ String _iconsunny="sunny";
       _icond=Icon(_icons[_icondark]);
     }else{
       _icon=_iconsunny;
-      _icond= Icon(_icons[_icon]);
+      _icond= Icon(_icons[_iconsunny]);
     }
+    _brightness=(_icon==_iconsunny) ? Brightness.light:Brightness.dark;
     notifyListeners();
   }
 }
