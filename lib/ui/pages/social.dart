@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flip_box_bar/flip_box_bar.dart';
 import 'package:flutter_application_1/controllers/email_controller.dart';
 import 'package:flutter_application_1/controllers/social_controller.dart';
+import 'package:flutter_application_1/ui/pages/login.dart';
 
 import 'package:get/get.dart';
 
@@ -63,6 +64,14 @@ class _PageState extends State<Social> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Social de ${emailController.getEmail.toString()}'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.logout),
+            onPressed: () {
+              Get.off(const Social());
+            },
+          ),
+        ],
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
