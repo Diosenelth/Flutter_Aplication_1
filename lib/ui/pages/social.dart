@@ -6,10 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flip_box_bar/flip_box_bar.dart';
 import 'package:flutter_application_1/controllers/email_controller.dart';
 import 'package:flutter_application_1/controllers/social_controller.dart';
-import 'package:flutter_application_1/ui/pages/login.dart';
+
 
 import 'package:get/get.dart';
 
+import 'login.dart';
 import 'ubicacion.dart';
 
 
@@ -68,7 +69,7 @@ class _PageState extends State<Social> {
           IconButton(
             icon: Icon(Icons.logout),
             onPressed: () {
-              Get.off(const Social());
+              Get.off(const Login());
             },
           ),
         ],
