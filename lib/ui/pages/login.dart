@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/controllers/email_controller.dart';
+import 'package:flutter_application_1/ui/utils/icono_string_util.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -9,6 +10,8 @@ import 'registro.dart';
 import 'social.dart';
 
 EmailController emailController=Get.find();
+Icon iconData=getIcon();
+
 // TextEditingController _inputEmail= TextEditingController();
 
 class MainLogin extends StatelessWidget{
@@ -49,6 +52,16 @@ class _PageState extends State<Login> {
     return Scaffold(
         appBar: AppBar(
           title: const Text("Iniciar sesion"),
+          actions: <Widget>[
+            IconButton(
+              icon: iconData,
+              onPressed: () {
+                setState(() {
+                  iconData=getIconTheme();
+                });
+              },
+            ),
+        ],
         ),
         body: Center(
           child: Column(
