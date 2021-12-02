@@ -17,10 +17,10 @@ class Ubicacion extends StatelessWidget {
   static Card title() {
     return Card(
         child: Container(
-      margin: EdgeInsets.all(2),
+      margin: const EdgeInsets.all(2),
       height: 30,
-      decoration: BoxDecoration(color: Colors.blue),
-      child: Text(
+      decoration: const BoxDecoration(color: Colors.blue),
+      child: const Text(
         'EVENTOS CERCA DE TI',
         style: TextStyle(color: Colors.white, fontSize: 20),
         textAlign: TextAlign.center,
@@ -71,10 +71,10 @@ class Ubicacion extends StatelessWidget {
   }
 
   static Card cardUbicar() {
-    double pinPillPosition = -100;
-    String pinPath = '';
+    // double pinPillPosition = -100;
+    // String pinPath = '';
     String foto = 'images/AV1.png';
-    LatLng ubica = LatLng(0, 0);
+    LatLng ubica = const LatLng(0, 0);
     String locationName = 'MI UBICACION';
     Color labelColor = Colors.red;
 
@@ -83,11 +83,11 @@ class Ubicacion extends StatelessWidget {
         Align(
           alignment: Alignment.bottomCenter,
           child: Container(
-            margin: EdgeInsets.all(20),
+            margin: const EdgeInsets.all(20),
             height: 70,
             decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(50)),
+                borderRadius: const BorderRadius.all(Radius.circular(50)),
                 boxShadow: <BoxShadow>[
                   BoxShadow(
                       blurRadius: 20,
@@ -101,13 +101,13 @@ class Ubicacion extends StatelessWidget {
                   Container(
                     width: 50,
                     height: 50,
-                    margin: EdgeInsets.only(left: 10),
+                    margin: const EdgeInsets.only(left: 10),
                     child:
                         ClipOval(child: Image.asset(foto, fit: BoxFit.cover)),
                   ),
                   Expanded(
                     child: Container(
-                      margin: EdgeInsets.only(left: 20),
+                      margin: const EdgeInsets.only(left: 20),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -116,21 +116,21 @@ class Ubicacion extends StatelessWidget {
                               style: TextStyle(color: labelColor)),
                           Text('Latitud: ${ubica.latitude.toString()}',
                               style:
-                                  TextStyle(fontSize: 12, color: Colors.grey)),
+                                  const TextStyle(fontSize: 12, color: Colors.grey)),
                           Text('Longitud: ${ubica.longitude.toString()}',
                               style:
-                                  TextStyle(fontSize: 12, color: Colors.grey)),
+                                  const TextStyle(fontSize: 12, color: Colors.grey)),
                         ],
                       ),
                     ),
                   ),
                   Padding(
-                      padding: EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(15),
                       child: Row(
                         children: [
                           TextButton(
                               onPressed: () => {},
-                              child: Text('Buscar Eventos',
+                              child: const Text('Buscar Eventos',
                                   style: TextStyle(
                                       fontSize: 18, color: Colors.redAccent)))
                         ],

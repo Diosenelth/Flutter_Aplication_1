@@ -8,7 +8,7 @@ class IconDarkTheme with ChangeNotifier{
     'dark':Icons.dark_mode,
   };
 
-  Icon _icond=Icon(Icons.wb_sunny);
+  Icon _icond=const Icon(Icons.wb_sunny);
   Brightness _brightness= Brightness.light;
 
 

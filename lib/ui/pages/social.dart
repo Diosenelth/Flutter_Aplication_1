@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -28,8 +30,6 @@ class Social extends StatefulWidget {
 class _PageState extends State<Social> {
   int _selectedIndex = 0;
 
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   
   static List cardsUbicar = List.generate(1, (i) => Ubicacion.cardUbicar());
   static List cardsUbicar2 = List.generate(3, (i) => Ubicacion.cardUbicar2());
@@ -78,8 +78,10 @@ class _PageState extends State<Social> {
             },
           ),
           IconButton(
-            icon: Icon(Icons.logout),
+            icon: const Icon(Icons.logout),
             onPressed: () {
+              emailController.email("");
+              emailController.pass("");
               Get.off(const Login());
             },
           ),

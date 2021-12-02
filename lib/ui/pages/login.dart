@@ -56,9 +56,9 @@ class _PageState extends State<Login> {
             IconButton(
               icon: pricon.icon,
               onPressed: () {
-                setState(() {
-                  pricon.seticon();
-                });
+                  setState(() {
+                    pricon.seticon();
+                  });
               },
             ),
         ],
