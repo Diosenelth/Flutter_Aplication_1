@@ -2,13 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/controllers/email_controller.dart';
 import 'package:flutter_application_1/controllers/registro_controller.dart';
-import 'package:flutter_application_1/ui/utils/icono_string_util.dart';
+import 'package:flutter_application_1/providers/icon_provider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 RegistroController registroController=Get.find();
 EmailController emailController=Get.find();
-Icon iconData=getIcon();
 
 class Registro extends StatefulWidget {
   const Registro({Key? key}) : super(key: key);
@@ -20,16 +20,17 @@ class Registro extends StatefulWidget {
 class _PageState extends State<Registro> {
   @override
   Widget build(BuildContext context) {
+  final pricon=Provider.of<IconDarkTheme>(context);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text("Registrarse"),
             actions: <Widget>[
             IconButton(
-              icon: iconData,
+              icon: pricon.icon,
               onPressed: () {
                 setState(() {
-                  iconData=getIconTheme();
+                  pricon.seticon();
                 });
               },
             ),

@@ -6,15 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:flip_box_bar/flip_box_bar.dart';
 import 'package:flutter_application_1/controllers/email_controller.dart';
 import 'package:flutter_application_1/controllers/social_controller.dart';
-import 'package:flutter_application_1/ui/utils/icono_string_util.dart';
+import 'package:flutter_application_1/providers/icon_provider.dart';
 
 
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 import 'login.dart';
 import 'ubicacion.dart';
 
-Icon iconData=getIcon();
 
 
 class Social extends StatefulWidget {
@@ -63,20 +63,17 @@ class _PageState extends State<Social> {
   @override
   Widget build(BuildContext context) {
     EmailController emailController=Get.find();
-
-
-    // Icon iconsunny=Icon(Icons.wb_sunny);
-    // Icon iconData=getIcon("sunny");
+    final pricon=Provider.of<IconDarkTheme>(context);
 
     return Scaffold(
       appBar: AppBar(
         title: Text('Social de ${emailController.getEmail.toString()}'),
         actions: <Widget>[
           IconButton(
-            icon: iconData,
+            icon: pricon.icon,
             onPressed: () {
               setState(() {
-                iconData=getIconTheme();
+                pricon.seticon();
               });
             },
           ),

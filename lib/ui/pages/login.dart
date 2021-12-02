@@ -1,36 +1,37 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/controllers/email_controller.dart';
-import 'package:flutter_application_1/ui/utils/icono_string_util.dart';
+import 'package:flutter_application_1/providers/icon_provider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:provider/provider.dart';
 
 import 'registro.dart';
 import 'social.dart';
 
 EmailController emailController=Get.find();
-Icon iconData=getIcon();
-
-// TextEditingController _inputEmail= TextEditingController();
 
 class MainLogin extends StatelessWidget{
   const MainLogin({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      theme: ThemeData(
-        brightness: Brightness.light,
-        primarySwatch: Colors.blue,
-      ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        primarySwatch: Colors.blue,
-      ),
-      debugShowCheckedModeBanner: false,
-      home: const Center(
-        child: Login(),
+    return ChangeNotifierProvider(
+      create: (BuildContext context)=>IconDarkTheme(),
+      child: GetMaterialApp(
+        theme: ThemeData(
+          brightness: Brightness.light,
+          primarySwatch: Colors.blue,
+        ),
+        darkTheme: ThemeData(
+          brightness: Brightness.dark,
+          primarySwatch: Colors.blue,
+        ),
+        debugShowCheckedModeBanner: false,
+        home: const Center(
+          child: Login(),
+        ),
       ),
     );
   }
@@ -48,16 +49,16 @@ class Login extends StatefulWidget {
 class _PageState extends State<Login> {
   @override
   Widget build(BuildContext context) {
-    
+    final pricon=Provider.of<IconDarkTheme>(context);
     return Scaffold(
         appBar: AppBar(
           title: const Text("Iniciar sesion"),
           actions: <Widget>[
             IconButton(
-              icon: iconData,
+              icon: pricon.icon,
               onPressed: () {
                 setState(() {
-                  iconData=getIconTheme();
+                  pricon.seticon();
                 });
               },
             ),
