@@ -6,7 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flip_box_bar/flip_box_bar.dart';
 import 'package:flutter_application_1/controllers/email_controller.dart';
 import 'package:flutter_application_1/controllers/social_controller.dart';
+
 import 'package:get/get.dart';
+
+import 'ubicacion.dart';
 
 
 
@@ -24,6 +27,9 @@ class _PageState extends State<Social> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   
+  static List cardsUbicar = List.generate(1, (i) => Ubicacion.cardUbicar());
+  static List cardsUbicar2 = List.generate(3, (i) => Ubicacion.cardUbicar2());
+  static List cardsUbicar3 = List.generate(1, (i) => Ubicacion.title());
   static List cardsActividad = List.of(cardActivity());
   // static List cardsSocial = List.generate(4, (i)=> cardSocialandEstado("SOCIAL"));
   //  static List cardsEstado = List.generate(4, (i)=> cardSocialandEstado("ESTADO"));
@@ -44,9 +50,8 @@ class _PageState extends State<Social> {
           ..._textFields("ESTADO"),
           ...cardsEstado],
     ),
-    const Text(
-      'Index 3: Menu',
-      style: optionStyle,
+    ListView(
+      children: [...cardsUbicar, ...cardsUbicar3, ...cardsUbicar2],
     ),
   ];
 
@@ -65,8 +70,7 @@ class _PageState extends State<Social> {
 
         bottomNavigationBar:
         FlipBoxBar(
-            selectedIndex: _selectedIndex,
-            navBarHeight: 40.0,
+            selectedIndex: _selectedIndex,  
           items:[
             FlipBarItem(icon: const Icon(Icons.notifications),
              text: const Text("Actividades"),frontColor: Colors.red[900],

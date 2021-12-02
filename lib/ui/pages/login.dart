@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/controllers/email_controller.dart';
-import 'package:flutter_application_1/src/pages/registro.dart';
-import 'package:flutter_application_1/src/pages/social.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+
+import 'registro.dart';
+import 'social.dart';
 
 EmailController emailController=Get.find();
 // TextEditingController _inputEmail= TextEditingController();
