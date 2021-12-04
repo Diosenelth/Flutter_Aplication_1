@@ -6,10 +6,18 @@ import 'package:get/get.dart';
 
 import 'controllers/social_controller.dart';
 import 'ui/pages/login.dart';
+import 'package:loggy/loggy.dart';
+
 
 void main() {
+    WidgetsFlutterBinding.ensureInitialized();
+    Loggy.initLoggy(
+      logPrinter: const PrettyPrinter(
+        showColors: true,
+    ),
+  );
   Get.put(EmailController());
   Get.put(RegistroController());
   Get.put(SocialController());
-  runApp(const MainLogin());
+  runApp(MainLogin());
 }
