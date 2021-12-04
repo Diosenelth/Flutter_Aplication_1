@@ -39,7 +39,7 @@ class MainLogin extends StatelessWidget {
                       // check for errors
                       if (snapshot.hasError) {
                         return const Center(
-                        child: Text('Loading'),
+                        child: Text('No se pudo conectar'),
                       );
                       }
 
@@ -50,7 +50,7 @@ class MainLogin extends StatelessWidget {
 
                       // Otherwise, show something while waiting for initialization complete
                       return const Center(
-                        child: Text('Loading'),
+                        child: Text('Intentando conectarse'),
                       );
                     }))
                     ),
