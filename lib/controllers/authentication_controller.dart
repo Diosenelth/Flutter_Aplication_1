@@ -4,22 +4,19 @@ import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthenticationController extends GetxController {
-
   //Crea el futuro para iniciar sesion, deben recibirse como params el email y contraseña
   // Future<void> login(theEmail, thePassword) async {}
 
   //Crea el futuro para el registro de nuevos usuarios, deben recibirse como params el email y contraseña
   // Future<void> signUp(email, password) async {}
 
-
-   //Crea el futuro para cerrar sesion
+  //Crea el futuro para cerrar sesion
   // Future<void> logOut() async {}
-  
+
   String userEmail() {
     String email = FirebaseAuth.instance.currentUser!.email ?? "a@a.com";
     return email;
   }
-
 
   Future<void> login(theEmail, thePassword) async {
     try {
@@ -35,7 +32,7 @@ class AuthenticationController extends GetxController {
         print('NOK 2');
         return Future.error("Contraseña equivocada");
       }
-      }
+    }
   }
 
   Future<void> signUp(email, password) async {
@@ -47,13 +44,12 @@ class AuthenticationController extends GetxController {
       if (e.code == 'weak-password') {
         return Future.error('The password provided is too weak.');
       } else if (e.code == 'email-already-in-use') {
-        return Future.error('The account already exists for that email.');
+        return Future.error('La cuenta ya existe para este email.');
       } else if (e.code == 'network-request-failed') {
         return Future.error('No hay conexión a internet.');
       }
     }
   }
-
 
   Future<void> logOut() async {
     try {
@@ -62,7 +58,4 @@ class AuthenticationController extends GetxController {
       return Future.error(e.toString());
     }
   }
-
-
-
 }

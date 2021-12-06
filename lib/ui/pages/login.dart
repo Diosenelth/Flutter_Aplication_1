@@ -15,7 +15,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_central.dart';
 import 'registro.dart';
 
-
 class MainLogin extends StatelessWidget {
   MainLogin({Key? key}) : super(key: key);
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
@@ -40,7 +39,8 @@ class MainLogin extends StatelessWidget {
                       if (snapshot.hasError) {
                         print("error ${snapshot.error}");
                         return const Center(
-                        child: Text('No se pudo conectar'),);
+                          child: Text('No se pudo conectar'),
+                        );
                       }
                       // Once complete, show your application
 
@@ -56,8 +56,7 @@ class MainLogin extends StatelessWidget {
                       return const Center(
                         child: Text('Intentando conectarse'),
                       );
-                    }))
-                    ),
+                    }))),
       ),
     );
   }
@@ -71,7 +70,7 @@ class Login extends StatefulWidget {
 
 class _PageState extends State<Login> {
   EmailController emailController = Get.find();
-  AuthenticationController authenticationController=Get.find();
+  AuthenticationController authenticationController = Get.find();
   @override
   Widget build(BuildContext context) {
     final pricon = Provider.of<IconDarkTheme>(context);
@@ -184,11 +183,11 @@ class _PageState extends State<Login> {
       height: 40.0,
       width: 120,
       child: ElevatedButton(
-          onPressed: () async{
+          onPressed: () async {
             FocusScope.of(context).requestFocus(FocusNode());
             if (emailController.getEmail.isNotEmpty &&
                 emailController.getPass.length >= 8) {
-                  await _login(emailController.getEmail , emailController.getPass);
+              await _login(emailController.getEmail, emailController.getPass);
             } else if (!emailController.validaremail() ||
                 emailController.getEmail.isEmpty) {
               Fluttertoast.showToast(
@@ -220,8 +219,7 @@ class _PageState extends State<Login> {
     );
   }
 
-
-    _login(theEmail, thePassword) async {
+  _login(theEmail, thePassword) async {
     print('_login $theEmail $thePassword');
     try {
       await authenticationController.login(theEmail, thePassword);

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/ui/pages/login.dart';
 import 'package:flutter_application_1/ui/pages/social.dart';
 
-
 class FirebaseCentral extends StatelessWidget {
   const FirebaseCentral({Key? key}) : super(key: key);
 
@@ -17,7 +16,6 @@ class FirebaseCentral extends StatelessWidget {
           // EmailController emailController=Get.find();
           // emailController.email();
           return const Social();
-
         } else {
           return const Login();
         }

@@ -115,11 +115,11 @@ class Ubicacion extends StatelessWidget {
                           Text(locationName,
                               style: TextStyle(color: labelColor)),
                           Text('Latitud: ${ubica.latitude.toString()}',
-                              style:
-                                  const TextStyle(fontSize: 12, color: Colors.grey)),
+                              style: const TextStyle(
+                                  fontSize: 12, color: Colors.grey)),
                           Text('Longitud: ${ubica.longitude.toString()}',
-                              style:
-                                  const TextStyle(fontSize: 12, color: Colors.grey)),
+                              style: const TextStyle(
+                                  fontSize: 12, color: Colors.grey)),
                         ],
                       ),
                     ),

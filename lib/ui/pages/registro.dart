@@ -10,10 +10,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-RegistroController registroController=Get.find();
-EmailController emailController=Get.find();
-AuthenticationController authenticationController=Get.find();
-
+RegistroController registroController = Get.find();
+EmailController emailController = Get.find();
+AuthenticationController authenticationController = Get.find();
 
 class Registro extends StatefulWidget {
   const Registro({Key? key}) : super(key: key);
@@ -25,24 +24,23 @@ class Registro extends StatefulWidget {
 class _PageState extends State<Registro> {
   @override
   Widget build(BuildContext context) {
-  final pricon=Provider.of<IconDarkTheme>(context);
+    final pricon = Provider.of<IconDarkTheme>(context);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text("Registrarse"),
-            actions: <Widget>[
-            IconButton(
-              icon: pricon.icon,
-              onPressed: () {
-                setState(() {
-                  pricon.seticon();
-                });
-              },
-            ),
+        actions: <Widget>[
+          IconButton(
+            icon: pricon.icon,
+            onPressed: () {
+              setState(() {
+                pricon.seticon();
+              });
+            },
+          ),
         ],
       ),
       body: Center(
-        
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,137 +53,135 @@ class _PageState extends State<Registro> {
             Container(
               padding: const EdgeInsets.all(30.0),
               child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: _textFields(),
-            ),
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: _textFields(),
+              ),
             )
           ],
         ),
-        ),
-
-  );
+      ),
+    );
   }
 
-  List<Widget> _textFields(){
+  List<Widget> _textFields() {
     return [
       // texto("Usuario"),
       // usuarioField(false,'Usuario'),
       // const SizedBox(height: 10),
       texto("Correo Electronico"),
-      emailField(false,'Correo electronico'),
+      emailField(false, 'Correo electronico'),
       const SizedBox(height: 10),
       texto("Contraseña"),
-      passField(true,'Contraseña'),
+      passField(true, 'Contraseña'),
       const SizedBox(height: 20),
-      
+
       _crearBotones()
     ];
   }
 
-  Text texto(String texto){
+  Text texto(String texto) {
     return Text(
-        texto,
-        textAlign: TextAlign.justify,
-         style: const TextStyle(fontSize: 25),
-         );
+      texto,
+      textAlign: TextAlign.justify,
+      style: const TextStyle(fontSize: 25),
+    );
   }
 
-TextField usuarioField(bool bool, String texto){
-  return TextField(
-        textCapitalization: TextCapitalization.sentences,
-        obscureText: bool,
-                decoration: InputDecoration(
+  TextField usuarioField(bool bool, String texto) {
+    return TextField(
+      textCapitalization: TextCapitalization.sentences,
+      obscureText: bool,
+      decoration: InputDecoration(
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15.0),
           ),
           labelText: texto,
-          icon: const Icon(Icons.account_circle)
-        ),
-        onChanged: (valor)=>registroController.usuario(valor),
-      );
-}
+          icon: const Icon(Icons.account_circle)),
+      onChanged: (valor) => registroController.usuario(valor),
+    );
+  }
 
-TextField emailField(bool bool, String texto){
-  return TextField(
-    keyboardType: TextInputType.emailAddress,
-        obscureText: bool,
-        decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15.0),
-          ),
-          labelText: texto,
-          icon:  const Icon(Icons.email),
+  TextField emailField(bool bool, String texto) {
+    return TextField(
+      keyboardType: TextInputType.emailAddress,
+      obscureText: bool,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15.0),
         ),
-        onChanged: (valor)=>registroController.email(valor),
-      );
-}
-TextField passField(bool bool, String texto){
-  return TextField(
-        obscureText: bool,
-        decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15.0),
-          ),
-          labelText: texto,
-          counter: Obx(()=>Text(registroController.getPass.length.toString())),
-          icon:  const Icon(Icons.password),
+        labelText: texto,
+        icon: const Icon(Icons.email),
+      ),
+      onChanged: (valor) => registroController.email(valor),
+    );
+  }
+
+  TextField passField(bool bool, String texto) {
+    return TextField(
+      obscureText: bool,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15.0),
         ),
-        onChanged: (valor)=>registroController.pass(valor),
-      );
-}
-  Widget _crearBotones(){
+        labelText: texto,
+        counter: Obx(() => Text(registroController.getPass.length.toString())),
+        icon: const Icon(Icons.password),
+      ),
+      onChanged: (valor) => registroController.pass(valor),
+    );
+  }
+
+  Widget _crearBotones() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-      elevatedButton("Iniciar"),
-      const SizedBox(width: 8.0),
-      registerButton('Registrarse'),
-    ],
-    );
-  }
-  
-  SizedBox elevatedButton(String texto){
-    return SizedBox(
-      height: 40.0,
-      width: 120,
-      child:ElevatedButton(
-      onPressed: (){
-          Get.back();
-      },
-      child: Text(texto)
-      ),
-    );
-  }
-  
-    SizedBox registerButton(String texto){
-    return SizedBox(
-      height: 40.0,
-      width: 120,
-      child:ElevatedButton(
-      onPressed: (){
-        FocusScope.of(context).requestFocus(FocusNode());
-        if (registroController.validarEmail()&&registroController.getPass.length>=8) {
-          _signup(registroController.getEmail,
-                                    registroController.getPass);
-        }else if (!registroController.validarEmail()) {
-          Fluttertoast.showToast(
-            msg: 'Email Invalido',
-            toastLength: Toast.LENGTH_SHORT,
-          );          
-        }else if (registroController.getPass.length<8) {
-          Fluttertoast.showToast(
-            msg: 'Contraseña no segura',
-            toastLength: Toast.LENGTH_SHORT,
-          );          
-        }
-      },
-      child: Text(texto)
-      ),
+        elevatedButton("Iniciar"),
+        const SizedBox(width: 8.0),
+        registerButton('Registrarse'),
+      ],
     );
   }
 
-    _signup(theEmail, thePassword) async {
+  SizedBox elevatedButton(String texto) {
+    return SizedBox(
+      height: 40.0,
+      width: 120,
+      child: ElevatedButton(
+          onPressed: () {
+            Get.back();
+          },
+          child: Text(texto)),
+    );
+  }
+
+  SizedBox registerButton(String texto) {
+    return SizedBox(
+      height: 40.0,
+      width: 120,
+      child: ElevatedButton(
+          onPressed: () {
+            FocusScope.of(context).requestFocus(FocusNode());
+            if (registroController.validarEmail() &&
+                registroController.getPass.length >= 8) {
+              _signup(registroController.getEmail, registroController.getPass);
+            } else if (!registroController.validarEmail()) {
+              Fluttertoast.showToast(
+                msg: 'Email Invalido',
+                toastLength: Toast.LENGTH_SHORT,
+              );
+            } else if (registroController.getPass.length < 8) {
+              Fluttertoast.showToast(
+                msg: 'Contraseña no segura',
+                toastLength: Toast.LENGTH_SHORT,
+              );
+            }
+          },
+          child: Text(texto)),
+    );
+  }
+
+  _signup(theEmail, thePassword) async {
     try {
       await authenticationController.signUp(theEmail, thePassword);
 
@@ -196,12 +192,11 @@ TextField passField(bool bool, String texto){
         snackPosition: SnackPosition.BOTTOM,
       );
       setState(() {
-        emailController.email(registroController.getEmail);            
-        });
+        emailController.email(registroController.getEmail);
+      });
 
       Timer _timer;
       _timer = Timer.periodic(const Duration(seconds: 2), (_) => Get.back());
-
 
       // Get.back();
     } catch (err) {
