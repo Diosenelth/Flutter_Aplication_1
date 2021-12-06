@@ -65,6 +65,7 @@ class _PageState extends State<Social> {
   Widget build(BuildContext context) {
     EmailController emailController=Get.find();
     AuthenticationController authenticationController = Get.find();
+    
 
     final pricon=Provider.of<IconDarkTheme>(context);
 
@@ -85,6 +86,7 @@ class _PageState extends State<Social> {
             onPressed: () {
               emailController.email("");
               emailController.pass("");
+              authenticationController.logOut();
               Get.off(const Login());
             },
           ),

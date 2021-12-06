@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/controllers/authentication_controller.dart';
@@ -67,9 +69,9 @@ class _PageState extends State<Registro> {
 
   List<Widget> _textFields(){
     return [
-      texto("Usuario"),
-      usuarioField(false,'Usuario'),
-      const SizedBox(height: 10),
+      // texto("Usuario"),
+      // usuarioField(false,'Usuario'),
+      // const SizedBox(height: 10),
       texto("Correo Electronico"),
       emailField(false,'Correo electronico'),
       const SizedBox(height: 10),
@@ -162,18 +164,10 @@ TextField passField(bool bool, String texto){
       width: 120,
       child:ElevatedButton(
       onPressed: (){
-        if (registroController.getUsuario.isNotEmpty && registroController.validarEmail()&&registroController.getPass.length>=8) {
+        FocusScope.of(context).requestFocus(FocusNode());
+        if (registroController.validarEmail()&&registroController.getPass.length>=8) {
           _signup(registroController.getEmail,
                                     registroController.getPass);
-          setState(() {
-          emailController.email(registroController.getEmail);            
-          });      
-          Get.back();
-        }else if (registroController.getUsuario.isEmpty) {
-          Fluttertoast.showToast(
-            msg: 'Usuario vacio',
-            toastLength: Toast.LENGTH_SHORT,
-          );          
         }else if (!registroController.validarEmail()) {
           Fluttertoast.showToast(
             msg: 'Email Invalido',
@@ -201,6 +195,15 @@ TextField passField(bool bool, String texto){
         icon: const Icon(Icons.person, color: Colors.blue),
         snackPosition: SnackPosition.BOTTOM,
       );
+      setState(() {
+        emailController.email(registroController.getEmail);            
+        });
+
+      Timer _timer;
+      _timer = Timer.periodic(const Duration(seconds: 2), (_) => Get.back());
+
+
+      // Get.back();
     } catch (err) {
       Get.snackbar(
         "registro",
