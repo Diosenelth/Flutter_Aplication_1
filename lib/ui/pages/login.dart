@@ -1,16 +1,18 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/controllers/authentication_controller.dart';
 import 'package:flutter_application_1/controllers/email_controller.dart';
+import 'package:flutter_application_1/controllers/registro_controller.dart';
+import 'package:flutter_application_1/controllers/social_controller.dart';
 import 'package:flutter_application_1/providers/icon_provider.dart';
+import 'package:flutter_application_1/ui/pages/social.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'firebase_central.dart';
 import 'registro.dart';
-import 'social.dart';
 
-EmailController emailController = Get.find();
 
 class MainLogin extends StatelessWidget {
   MainLogin({Key? key}) : super(key: key);
@@ -27,25 +29,25 @@ class MainLogin extends StatelessWidget {
               primarySwatch: Colors.blue,
             ),
             debugShowCheckedModeBanner: false,
-            home:
-            //  const Center(
-            //   child: Login(),
-            // )
-            Scaffold(
+            home: Scaffold(
                 body: FutureBuilder(
                     // Initialize FlutterFire:
                     future: _initialization,
                     builder: (context, snapshot) {
                       // check for errors
                       if (snapshot.hasError) {
+                        print("error ${snapshot.error}");
                         return const Center(
-                        child: Text('No se pudo conectar'),
-                      );
+                        child: Text('No se pudo conectar'),);
                       }
-
                       // Once complete, show your application
+
                       if (snapshot.connectionState == ConnectionState.done) {
-                        return const Login();
+                        Get.put(EmailController());
+                        Get.put(RegistroController());
+                        Get.put(SocialController());
+                        Get.put(AuthenticationController());
+                        return FirebaseCentral();
                       }
 
                       // Otherwise, show something while waiting for initialization complete
@@ -61,12 +63,13 @@ class MainLogin extends StatelessWidget {
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
-
   @override
   State<StatefulWidget> createState() => _PageState();
 }
 
 class _PageState extends State<Login> {
+  EmailController emailController = Get.find();
+  AuthenticationController authenticationController=Get.find();
   @override
   Widget build(BuildContext context) {
     final pricon = Provider.of<IconDarkTheme>(context);
@@ -179,10 +182,11 @@ class _PageState extends State<Login> {
       height: 40.0,
       width: 120,
       child: ElevatedButton(
-          onPressed: () {
+          onPressed: () async{
+            FocusScope.of(context).requestFocus(FocusNode());
             if (emailController.getEmail.isNotEmpty &&
                 emailController.getPass.length >= 8) {
-              Get.off(const Social());
+                  await _login(emailController.getEmail , emailController.getPass);
             } else if (!emailController.validaremail() ||
                 emailController.getEmail.isEmpty) {
               Fluttertoast.showToast(
@@ -212,5 +216,21 @@ class _PageState extends State<Login> {
           },
           child: Text(texto)),
     );
+  }
+
+
+    _login(theEmail, thePassword) async {
+    print('_login $theEmail $thePassword');
+    try {
+      await authenticationController.login(theEmail, thePassword);
+      Get.to(const Social());
+    } catch (err) {
+      Get.snackbar(
+        "Login",
+        err.toString(),
+        icon: Icon(Icons.person, color: Colors.red),
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
   }
 }

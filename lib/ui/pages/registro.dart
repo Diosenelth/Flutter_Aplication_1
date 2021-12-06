@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/controllers/authentication_controller.dart';
 import 'package:flutter_application_1/controllers/email_controller.dart';
 import 'package:flutter_application_1/controllers/registro_controller.dart';
 import 'package:flutter_application_1/providers/icon_provider.dart';
@@ -9,6 +10,8 @@ import 'package:provider/provider.dart';
 
 RegistroController registroController=Get.find();
 EmailController emailController=Get.find();
+AuthenticationController authenticationController=Get.find();
+
 
 class Registro extends StatefulWidget {
   const Registro({Key? key}) : super(key: key);
@@ -160,6 +163,8 @@ TextField passField(bool bool, String texto){
       child:ElevatedButton(
       onPressed: (){
         if (registroController.getUsuario.isNotEmpty && registroController.validarEmail()&&registroController.getPass.length>=8) {
+          _signup(registroController.getEmail,
+                                    registroController.getPass);
           setState(() {
           emailController.email(registroController.getEmail);            
           });      
@@ -184,5 +189,25 @@ TextField passField(bool bool, String texto){
       child: Text(texto)
       ),
     );
+  }
+
+    _signup(theEmail, thePassword) async {
+    try {
+      await authenticationController.signUp(theEmail, thePassword);
+
+      Get.snackbar(
+        "Registro",
+        'Correcto',
+        icon: Icon(Icons.person, color: Colors.blue),
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    } catch (err) {
+      Get.snackbar(
+        "registro",
+        err.toString(),
+        icon: Icon(Icons.person, color: Colors.red),
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
   }
 }

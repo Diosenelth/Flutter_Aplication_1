@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/controllers/authentication_controller.dart';
 import 'package:flutter_application_1/controllers/email_controller.dart';
 import 'package:flutter_application_1/controllers/registro_controller.dart';
 
@@ -16,8 +17,6 @@ void main() {
         showColors: true,
     ),
   );
-  Get.put(EmailController());
-  Get.put(RegistroController());
-  Get.put(SocialController());
+
   runApp(MainLogin());
 }
