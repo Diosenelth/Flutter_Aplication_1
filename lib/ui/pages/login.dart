@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/controllers/authentication_controller.dart';
 import 'package:flutter_application_1/controllers/email_controller.dart';
@@ -47,7 +49,7 @@ class MainLogin extends StatelessWidget {
                         Get.put(RegistroController());
                         Get.put(SocialController());
                         Get.put(AuthenticationController());
-                        return FirebaseCentral();
+                        return const FirebaseCentral();
                       }
 
                       // Otherwise, show something while waiting for initialization complete
@@ -228,7 +230,7 @@ class _PageState extends State<Login> {
       Get.snackbar(
         "Login",
         err.toString(),
-        icon: Icon(Icons.person, color: Colors.red),
+        icon: const Icon(Icons.person, color: Colors.red),
         snackPosition: SnackPosition.BOTTOM,
       );
     }

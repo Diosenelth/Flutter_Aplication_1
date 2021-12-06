@@ -198,14 +198,14 @@ TextField passField(bool bool, String texto){
       Get.snackbar(
         "Registro",
         'Correcto',
-        icon: Icon(Icons.person, color: Colors.blue),
+        icon: const Icon(Icons.person, color: Colors.blue),
         snackPosition: SnackPosition.BOTTOM,
       );
     } catch (err) {
       Get.snackbar(
         "registro",
         err.toString(),
-        icon: Icon(Icons.person, color: Colors.red),
+        icon: const Icon(Icons.person, color: Colors.red),
         snackPosition: SnackPosition.BOTTOM,
       );
     }
