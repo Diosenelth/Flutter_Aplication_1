@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flip_box_bar/flip_box_bar.dart';
+import 'package:flutter_application_1/controllers/authentication_controller.dart';
 import 'package:flutter_application_1/controllers/email_controller.dart';
 import 'package:flutter_application_1/controllers/social_controller.dart';
 import 'package:flutter_application_1/providers/icon_provider.dart';
@@ -63,11 +64,13 @@ class _PageState extends State<Social> {
   @override
   Widget build(BuildContext context) {
     EmailController emailController=Get.find();
+    AuthenticationController authenticationController = Get.find();
+
     final pricon=Provider.of<IconDarkTheme>(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Social de ${emailController.getEmail.toString()}'),
+        title: Text('Social de ${authenticationController.userEmail()}'),
         actions: <Widget>[
           IconButton(
             icon: pricon.icon,

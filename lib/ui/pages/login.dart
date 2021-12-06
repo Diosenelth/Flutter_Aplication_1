@@ -223,7 +223,7 @@ class _PageState extends State<Login> {
     print('_login $theEmail $thePassword');
     try {
       await authenticationController.login(theEmail, thePassword);
-      Get.to(const Social());
+      Get.off(const Social());
     } catch (err) {
       Get.snackbar(
         "Login",
