@@ -148,10 +148,10 @@ class _PageState extends State<Registro> {
       height: 40.0,
       width: 120,
       child: ElevatedButton(
-          onPressed: () {
-            Get.back();
-          },
-          child: Text(texto)),
+        onPressed: () {
+          Get.back();
+        },
+        child: Text(texto)),
     );
   }
 
@@ -160,23 +160,23 @@ class _PageState extends State<Registro> {
       height: 40.0,
       width: 120,
       child: ElevatedButton(
-          onPressed: () {
-            FocusScope.of(context).requestFocus(FocusNode());
-            if (registroController.validarEmail() &&
-                registroController.getPass.length >= 8) {
-              _signup(registroController.getEmail, registroController.getPass);
-            } else if (!registroController.validarEmail()) {
-              Fluttertoast.showToast(
-                msg: 'Email Invalido',
-                toastLength: Toast.LENGTH_SHORT,
-              );
-            } else if (registroController.getPass.length < 8) {
-              Fluttertoast.showToast(
-                msg: 'Contraseña no segura',
-                toastLength: Toast.LENGTH_SHORT,
-              );
-            }
-          },
+        onPressed: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+          if (registroController.validarEmail() &&
+              registroController.getPass.length >= 8) {
+            _signup(registroController.getEmail, registroController.getPass);
+          } else if (!registroController.validarEmail()) {
+            Fluttertoast.showToast(
+              msg: 'Email Invalido',
+              toastLength: Toast.LENGTH_SHORT,
+            );
+          } else if (registroController.getPass.length < 8) {
+            Fluttertoast.showToast(
+              msg: 'Contraseña no segura',
+              toastLength: Toast.LENGTH_SHORT,
+            );
+          }
+        },
           child: Text(texto)),
     );
   }
@@ -184,19 +184,18 @@ class _PageState extends State<Registro> {
   _signup(theEmail, thePassword) async {
     try {
       await authenticationController.signUp(theEmail, thePassword);
-
-      Get.snackbar(
-        "Registro",
-        'Correcto',
-        icon: const Icon(Icons.person, color: Colors.blue),
-        snackPosition: SnackPosition.BOTTOM,
-      );
       setState(() {
+        Get.snackbar(
+          "Registro",
+          'Correcto',
+          icon: const Icon(Icons.person, color: Colors.blue),
+          snackPosition: SnackPosition.BOTTOM,
+        );
         emailController.email(registroController.getEmail);
+        Timer _timer;
+        _timer = Timer.periodic(const Duration(seconds: 2), (_) => Get.back());
       });
 
-      Timer _timer;
-      _timer = Timer.periodic(const Duration(seconds: 2), (_) => Get.back());
 
       // Get.back();
     } catch (err) {

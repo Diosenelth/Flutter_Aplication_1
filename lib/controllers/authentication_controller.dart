@@ -3,6 +3,8 @@
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'email_controller.dart';
+
 class AuthenticationController extends GetxController {
   //Crea el futuro para iniciar sesion, deben recibirse como params el email y contraseña
   // Future<void> login(theEmail, thePassword) async {}
@@ -20,10 +22,16 @@ class AuthenticationController extends GetxController {
 
   Future<void> login(theEmail, thePassword) async {
     try {
-      await FirebaseAuth.instance
+      UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: theEmail, password: thePassword);
       print('OK');
-      return Future.value(true);
+      EmailController emailController = Get.find();
+      if (userCredential!=null) {
+        return Future.value(true);
+      }else{
+        emailController.email("");
+        return Future.value(false);
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('NOK 1');
@@ -31,6 +39,8 @@ class AuthenticationController extends GetxController {
       } else if (e.code == 'wrong-password') {
         print('NOK 2');
         return Future.error("Contraseña equivocada");
+      }else{
+        return Future.error("Error de conexion");
       }
     }
   }
