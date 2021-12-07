@@ -39,8 +39,10 @@ class AuthenticationController extends GetxController {
       } else if (e.code == 'wrong-password') {
         print('NOK 2');
         return Future.error("Contraseña equivocada");
-      }else{
+      }else if (e.code == 'network-request-failed') {
         return Future.error("Error de conexion");
+      }else{
+        return Future.error("Error");
       }
     }
   }
