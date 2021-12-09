@@ -1,11 +1,6 @@
-import 'dart:html';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_application_1/model/record.dart';
 import 'package:get/get.dart';
-import 'package:loggy/loggy.dart';
-
-final FirebaseController firebaseController = Get.find();
 
 class FirebaseController extends GetxController {
   var _records = <Record>[].obs;
@@ -26,6 +21,5 @@ class FirebaseController extends GetxController {
 
   //Implementa el metodo para agregar datos en firestore
   addEntry(name) { 
-    firebaseController.addEntry(name);
   }
 }

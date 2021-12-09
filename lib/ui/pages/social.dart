@@ -1,24 +1,35 @@
 // ignore_for_file: avoid_print
 
-import 'package:flutter/foundation.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flip_box_bar/flip_box_bar.dart';
 import 'package:flutter_application_1/controllers/authentication_controller.dart';
+import 'package:flutter_application_1/controllers/chat_controller.dart';
 import 'package:flutter_application_1/controllers/email_controller.dart';
 import 'package:flutter_application_1/controllers/firestore_controller.dart';
 import 'package:flutter_application_1/controllers/social_controller.dart';
+import 'package:flutter_application_1/model/message.dart';
 import 'package:flutter_application_1/model/record.dart';
 import 'package:flutter_application_1/providers/icon_provider.dart';
 
 import 'package:get/get.dart';
 import 'package:prompt_dialog/prompt_dialog.dart';
 import 'package:provider/provider.dart';
+import 'package:loggy/loggy.dart';
+
 
 import 'login.dart';
 import 'ubicacion.dart';
 
+
+
+    final FirebaseController firebaseController = Get.find();
+    EmailController emailController = Get.find();
+    AuthenticationController authenticationController = Get.find();
+    ChatController chatController = Get.find(); 
+    late ScrollController _scrollController;
 
 
 class Social extends StatefulWidget {
@@ -40,24 +51,27 @@ class _PageState extends State<Social> {
   static List cardsSocial = List.of(cardSocialandEstado("SOCIAL"));
   static List cardsEstado = List.of(cardSocialandEstado("ESTADO"));
 
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+    chatController.start();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    chatController.stop();
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
     final pricon = Provider.of<IconDarkTheme>(context);
-    final FirebaseController firebaseController = Get.find();
-    EmailController emailController = Get.find();
-    AuthenticationController authenticationController = Get.find();
-
 
     final List<Widget> _widgetOptions = <Widget>[
-      Obx(
-          () => ListView.builder(
-              itemCount: firebaseController.entries.length,
-              padding: EdgeInsets.only(top: 20.0),
-              itemBuilder: (BuildContext context, int index) {
-                return _buildItem(context, firebaseController.entries[index]);
-              }),
-        ),
+      _list(),
       ListView(
         children: [..._textFields("SOCIAL"), ...cardsSocial],
       ),
@@ -159,6 +173,41 @@ class _PageState extends State<Social> {
     );
   }
 
+  Widget _list() {
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+    print('Current user $uid');
+    return GetX<ChatController>(builder: (controller) {
+      WidgetsBinding.instance!.addPostFrameCallback((_) => _scrollToEnd());
+      return ListView.builder(
+        itemCount: chatController.messages.length,
+        controller: _scrollController,
+        itemBuilder: (context, index) {
+          var element = chatController.messages[index];
+          return _item(element, index, uid);
+        },
+      );
+    });
+  }
+    _scrollToEnd() async {
+    _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+        duration: Duration(milliseconds: 200), curve: Curves.easeInOut);
+  }
+
+  Widget _item(Message element, int posicion, String uid) {
+    logInfo('Current user? -> ${uid == element.user} msg -> ${element.text}');
+    return Card(
+      margin: EdgeInsets.all(4.0),
+      color: uid == element.user ? Colors.yellow[200] : Colors.grey[300],
+      child: ListTile(
+        title: Text(
+          element.text,
+          textAlign: uid == element.user ? TextAlign.right : TextAlign.left,
+        ),
+      ),
+    );
+  }
+
+
   Widget _buildItem(BuildContext context, Record record) {
     return Padding(
       key: ValueKey(record.name),
@@ -193,7 +242,7 @@ class _PageState extends State<Social> {
 
     Future<void> addBaby(BuildContext context) async {
     getName(context).then((value) {
-      firebaseController.addEntry(value);
+      chatController.sendMsg(value);
     });
   }
 
