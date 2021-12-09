@@ -1,11 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_application_1/model/message.dart';
+import 'package:flutter_application_1/ui/pages/registro.dart';
 import 'package:get/get.dart';
+
+import 'authentication_controller.dart';
 
 class ChatController extends GetxController {
   final databaseReference = FirebaseDatabase.instance.reference();
   var messages = <Message>[].obs;
+  AuthenticationController authenticationController = Get.find();
+
 
   start() {
     databaseReference
@@ -28,12 +33,12 @@ class ChatController extends GetxController {
   }
 
   Future<void> sendMsg(String text) async {
-    String uid = FirebaseAuth.instance.currentUser!.uid;
+    String email = authenticationController.userEmail();
     try {
       databaseReference
           .child("chat")
           .push()
-          .set({'text': text, 'uid': uid});
+          .set({'text': text, 'email': email});
     } catch (error) {
       print("Error sending msg");
       return Future.error(error);

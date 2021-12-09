@@ -174,8 +174,8 @@ class _PageState extends State<Social> {
   }
 
   Widget _list() {
-    String uid = FirebaseAuth.instance.currentUser!.uid;
-    print('Current user $uid');
+    String email = authenticationController.userEmail();
+    // print('Current user $uid');
     return GetX<ChatController>(builder: (controller) {
       WidgetsBinding.instance!.addPostFrameCallback((_) => _scrollToEnd());
       return ListView.builder(
@@ -183,7 +183,7 @@ class _PageState extends State<Social> {
         controller: _scrollController,
         itemBuilder: (context, index) {
           var element = chatController.messages[index];
-          return _item(element, index, uid);
+          return _item(element, index, email);
         },
       );
     });
@@ -193,15 +193,19 @@ class _PageState extends State<Social> {
         duration: Duration(milliseconds: 200), curve: Curves.easeInOut);
   }
 
-  Widget _item(Message element, int posicion, String uid) {
-    logInfo('Current user? -> ${uid == element.user} msg -> ${element.text}');
+  Widget _item(Message element, int posicion, String email) {
+    // logInfo('Current user? -> ${uid == element.user} msg -> ${element.text}');
     return Card(
       margin: EdgeInsets.all(4.0),
-      color: uid == element.user ? Colors.yellow[200] : Colors.grey[300],
+      color: email == element.user ? Colors.blue[400] : Colors.grey[500],
       child: ListTile(
         title: Text(
           element.text,
-          textAlign: uid == element.user ? TextAlign.right : TextAlign.left,
+          textAlign: email == element.user ? TextAlign.right : TextAlign.left,
+        ),
+        subtitle: Text(
+          element.user,
+          textAlign: email == element.user ? TextAlign.right : TextAlign.left,
         ),
       ),
     );
