@@ -17,7 +17,7 @@ import 'package:flutter_application_1/providers/icon_provider.dart';
 import 'package:get/get.dart';
 import 'package:prompt_dialog/prompt_dialog.dart';
 import 'package:provider/provider.dart';
-import 'package:loggy/loggy.dart';
+
 
 
 import 'login.dart';
@@ -90,9 +90,9 @@ class _PageState extends State<Social> {
           IconButton(
             icon: pricon.icon,
             onPressed: () {
-              setState(() {
+              // setState(() {
                 pricon.seticon();
-              });
+              // });
             },
           ),
           IconButton(

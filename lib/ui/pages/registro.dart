@@ -33,9 +33,9 @@ class _PageState extends State<Registro> {
           IconButton(
             icon: pricon.icon,
             onPressed: () {
-              setState(() {
+              // setState(() {
                 pricon.seticon();
-              });
+              // });
             },
           ),
         ],

@@ -11,7 +11,6 @@ import 'package:flutter_application_1/providers/icon_provider.dart';
 import 'package:flutter_application_1/ui/pages/social.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_central.dart';
@@ -87,9 +86,9 @@ class _PageState extends State<Login> {
           IconButton(
             icon: pricon.icon,
             onPressed: () {
-              setState(() {
+              // setState(() {
                 pricon.seticon();
-              });
+              // });
             },
           ),
         ],
