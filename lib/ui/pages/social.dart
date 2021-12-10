@@ -505,32 +505,6 @@ class _PageState extends State<Social> {
             ),
           ),
         ),
-        Expanded(
-          child: Row(
-            children: [
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.only(
-                      top: 4, left: 17, right: 6, bottom: 2),
-                  child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                          'Kevin Hernandez',
-                          style: TextStyle(
-                              color: Colors.grey[400],
-                              fontSize: 19,
-                              fontWeight: FontWeight.w300))),
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.only(
-                  top: 4,
-                  left: 17,
-                ),           
-                ),
-            ],
-          ),
-        ),
       ]),
     );
   }
