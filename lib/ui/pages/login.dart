@@ -187,24 +187,28 @@ class _PageState extends State<Login> {
       height: 40.0,
       width: 120,
       child: ElevatedButton(
-          onPressed: () async {
-            FocusScope.of(context).requestFocus(FocusNode());
-            if (emailController.getEmail.isNotEmpty &&
-                emailController.getPass.length >= 8) {
-              await _login(emailController.getEmail, emailController.getPass);
-            } else if (!emailController.validaremail() ||
-                emailController.getEmail.isEmpty) {
-              Fluttertoast.showToast(
-                msg: 'Email invalido',
-                toastLength: Toast.LENGTH_SHORT,
-              );
-            } else if (emailController.getPass.length < 8) {
-              Fluttertoast.showToast(
-                msg: 'Contraseña no segura',
-                toastLength: Toast.LENGTH_SHORT,
-              );
-            }
-          },
+          onPressed: () {
+            Get.off(const Social());
+          }
+          // async {
+          //   FocusScope.of(context).requestFocus(FocusNode());
+          //   if (emailController.getEmail.isNotEmpty &&
+          //       emailController.getPass.length >= 8) {
+          //     await _login(emailController.getEmail, emailController.getPass);
+          //   } else if (!emailController.validaremail() ||
+          //       emailController.getEmail.isEmpty) {
+          //     Fluttertoast.showToast(
+          //       msg: 'Email invalido',
+          //       toastLength: Toast.LENGTH_SHORT,
+          //     );
+          //   } else if (emailController.getPass.length < 8) {
+          //     Fluttertoast.showToast(
+          //       msg: 'Contraseña no segura',
+          //       toastLength: Toast.LENGTH_SHORT,
+          //     );
+          //   }
+          // }
+          ,
           child: Text(texto)),
     );
   }
