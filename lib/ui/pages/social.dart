@@ -527,13 +527,8 @@ class _PageState extends State<Social> {
                 padding: const EdgeInsets.only(
                   top: 4,
                   left: 17,
+                ),           
                 ),
-                child: Align(
-                  alignment: Alignment.center,
-                  icon: Icon(Icons.star),
-                      width: 25),
-                ),
-              ),
             ],
           ),
         ),
