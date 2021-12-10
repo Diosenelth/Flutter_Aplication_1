@@ -1,7 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_application_1/model/message.dart';
-import 'package:flutter_application_1/ui/pages/registro.dart';
 import 'package:get/get.dart';
 
 import 'authentication_controller.dart';
@@ -25,6 +23,7 @@ class ChatController extends GetxController {
         .onChildAdded
         .listen(_onEntryAdded)
         .cancel();
+        messages.clear();
   }
 
   _onEntryAdded(Event event) {

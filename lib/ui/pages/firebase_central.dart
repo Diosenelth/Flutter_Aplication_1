@@ -13,8 +13,6 @@ class FirebaseCentral extends StatelessWidget {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          // EmailController emailController=Get.find();
-          // emailController.email();
           return const Social();
         } else {
           return const Login();

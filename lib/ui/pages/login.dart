@@ -48,11 +48,10 @@ class MainLogin extends StatelessWidget {
                       if (snapshot.connectionState == ConnectionState.done) {
                         Get.put(EmailController());
                         Get.put(RegistroController());
-                        Get.put(SocialController());
                         Get.put(AuthenticationController());
                         Get.put(FirebaseController());
                         Get.put(ChatController());
-
+                        Get.put(SocialController());
                         return const FirebaseCentral();
                       }
 
@@ -141,18 +140,17 @@ class _PageState extends State<Login> {
 
   TextField emailField(bool bool, String texto) {
     return TextField(
-      controller: TextEditingController()..text = emailController.getEmail,
+      // controller: TextEditingController()..text = emailController.getEmail,
       keyboardType: TextInputType.emailAddress,
       obscureText: bool,
       decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15.0),
-          ),
-          labelText: texto,
-          icon: const Icon(Icons.account_circle)),
-      onChanged: (valor) {
-        emailController.email(valor);
-      },
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        labelText: texto,
+        icon: const Icon(Icons.account_circle)
+      ),
+      onChanged: (valor) => emailController.email(valor),
     );
   }
 

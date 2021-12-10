@@ -1,6 +1,4 @@
 // ignore_for_file: avoid_print
-
-
 import 'package:flutter/material.dart';
 
 // ignore: import_of_legacy_library_into_null_safe
@@ -13,6 +11,8 @@ import 'package:flutter_application_1/controllers/social_controller.dart';
 import 'package:flutter_application_1/model/message.dart';
 import 'package:flutter_application_1/model/record.dart';
 import 'package:flutter_application_1/providers/icon_provider.dart';
+import 'package:flutter_application_1/ui/pages/chat.dart';
+import 'package:flutter_application_1/ui/pages/chat_ui.dart';
 
 import 'package:get/get.dart';
 import 'package:prompt_dialog/prompt_dialog.dart';
@@ -44,25 +44,11 @@ class _PageState extends State<Social> {
   // static List cardsUbicar = List.generate(1, (i) => Ubicacion.cardUbicar());
   // static List cardsUbicar2 = List.generate(3, (i) => Ubicacion.cardUbicar2());
   // static List cardsUbicar3 = List.generate(1, (i) => Ubicacion.title());
-  // static List cardsActividad = List.of(cardActivity());
+  static List cardsActividad = List.of(cardActivity());
   // static List cardsSocial = List.generate(4, (i)=> cardSocialandEstado("SOCIAL"));
   //  static List cardsEstado = List.generate(4, (i)=> cardSocialandEstado("ESTADO"));
   static List cardsSocial = List.of(cardSocialandEstado("SOCIAL"));
   static List cardsEstado = List.of(cardSocialandEstado("ESTADO"));
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController = ScrollController();
-    chatController.start();
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    chatController.stop();
-    super.dispose();
-  }
 
 
   @override
@@ -70,14 +56,39 @@ class _PageState extends State<Social> {
     final pricon = Provider.of<IconDarkTheme>(context);
 
     final List<Widget> _widgetOptions = <Widget>[
-      _list(),
+      ListView(
+        children: [...cardsActividad],
+      ),
       ListView(
         children: [..._textFields("SOCIAL"), ...cardsSocial],
       ),
       ListView(
         children: [..._textFields("ESTADO"), ...cardsEstado],
       ),
-      textoMenu()
+      ListView(
+        children:[
+          Column(
+            children: [
+              textoMenu(),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: 70,
+                height: 43,
+                child: ElevatedButton(
+                  onPressed: (){
+                    Get.to(ChatUi());
+                  },
+                  child: Column(
+                    children: const [ 
+                      Text("Chat"),Icon(Icons.chat)
+                    ],
+                  ),
+                ),
+              ),
+            ]
+          ),
+        ]
+      ),
     ];
 
     return Scaffold(
@@ -106,12 +117,6 @@ class _PageState extends State<Social> {
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
-      floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () {
-            addBaby(context);
-          },
-        ),
       bottomNavigationBar: FlipBoxBar(
         selectedIndex: _selectedIndex,
         items: [
@@ -170,49 +175,10 @@ class _PageState extends State<Social> {
     );
   }
 
-  Widget _list() {
-    String email = authenticationController.userEmail();
-    // print('Current user $uid');
-    return GetX<ChatController>(builder: (controller) {
-      WidgetsBinding.instance!.addPostFrameCallback((_) => _scrollToEnd());
-      return ListView.builder(
-        itemCount: chatController.messages.length,
-        controller: _scrollController,
-        itemBuilder: (context, index) {
-          var element = chatController.messages[index];
-          return _item(element, index, email);
-        },
-      );
-    });
-  }
-    _scrollToEnd() async {
-    _scrollController.animateTo(_scrollController.position.maxScrollExtent,
-        duration: Duration(milliseconds: 200), curve: Curves.easeInOut);
-  }
-
-  Widget _item(Message element, int posicion, String email) {
-    // logInfo('Current user? -> ${uid == element.user} msg -> ${element.text}');
-    return Card(
-      margin: EdgeInsets.all(4.0),
-      color: email == element.user ? Colors.blue[400] : Colors.grey[500],
-      child: ListTile(
-        title: Text(
-          element.text,
-          textAlign: email == element.user ? TextAlign.right : TextAlign.left,
-        ),
-        subtitle: Text(
-          element.user,
-          textAlign: email == element.user ? TextAlign.right : TextAlign.left,
-        ),
-      ),
-    );
-  }
-
-
   Widget _buildItem(BuildContext context, Record record) {
     return Padding(
       key: ValueKey(record.name),
-      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(color: Colors.grey),
@@ -241,32 +207,6 @@ class _PageState extends State<Social> {
     ];
   }
 
-    Future<void> addBaby(BuildContext context) async {
-    getName(context).then((value) {
-      chatController.sendMsg(value);
-    });
-  }
-
-
-  Future<String> getName(BuildContext context) async {
-    String? result = await prompt(
-      context,
-      title: Text('Adding a baby'),
-      initialValue: '',
-      textOK: Text('Ok'),
-      textCancel: Text('Cancel'),
-      hintText: 'Baby name',
-      minLines: 1,
-      autoFocus: true,
-      obscureText: false,
-      textCapitalization: TextCapitalization.words,
-    );
-    if (result != null) {
-      return Future.value(result);
-    }
-    return Future.error('cancel');
-  }
-  
   static Text texto(String texto) {
     return Text(
       texto,
@@ -475,10 +415,9 @@ class _PageState extends State<Social> {
 
   Widget textoMenu() {
     return Container(
-      width: double.infinity,
       height: 190,
       //color:Colors.white,
-      decoration: new BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.white,
         border: Border(
           top: BorderSide(
@@ -497,7 +436,7 @@ class _PageState extends State<Social> {
           child: Align(
             alignment: Alignment.topLeft,
             child: Row(
-              children:[Text(
+              children:const [Text(
                 'Post title',
                 style: TextStyle(
                     color: Colors.black,
