@@ -497,12 +497,15 @@ class _PageState extends State<Social> {
           padding: const EdgeInsets.only(top: 10, left: 17, bottom: 1),
           child: Align(
             alignment: Alignment.topLeft,
-            child: Text(
-              'Post title',
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w800),
+            child: Row(
+              children:[Text(
+                'Post title',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w800),
+              ),
+              Icon(Icons.star, color: Colors.black)]
             ),
           ),
         ),
