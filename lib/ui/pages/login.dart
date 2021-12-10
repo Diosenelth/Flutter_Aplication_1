@@ -39,9 +39,7 @@ class MainLogin extends StatelessWidget {
                       // check for errors
                       if (snapshot.hasError) {
                         print("error ${snapshot.error}");
-                        return const Center(
-                          child: Text('No se pudo conectar'),
-                        );
+                        return const Social();
                       }
                       // Once complete, show your application
 
@@ -57,9 +55,7 @@ class MainLogin extends StatelessWidget {
                       }
 
                       // Otherwise, show something while waiting for initialization complete
-                      return const Center(
-                        child: Text('Intentando conectarse'),
-                      );
+                      return const Social();
                     }))),
       ),
     );
