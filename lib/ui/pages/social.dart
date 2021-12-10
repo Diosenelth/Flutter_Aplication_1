@@ -78,9 +78,7 @@ class _PageState extends State<Social> {
       ListView(
         children: [..._textFields("ESTADO"), ...cardsEstado],
       ),
-      ListView(
-        children: [...cardsUbicar, ...cardsUbicar3, ...cardsUbicar2],
-      ),
+      textoMenu()
     ];
 
     return Scaffold(
@@ -476,6 +474,72 @@ class _PageState extends State<Social> {
     }
   }
 
+  Widget textoMenu() {
+    return Container(
+      width: double.infinity,
+      height: 190,
+      //color:Colors.white,
+      decoration: new BoxDecoration(
+        color: Colors.white,
+        border: Border(
+          top: BorderSide(
+            color: Colors.black12,
+            width: 1,
+          ),
+          bottom: BorderSide(
+            color: Colors.black12,
+            width: 1,
+          ),
+        ),
+      ),
+      child: Column(children: [
+        Container(
+          padding: const EdgeInsets.only(top: 10, left: 17, bottom: 1),
+          child: Align(
+            alignment: Alignment.topLeft,
+            child: Text(
+              'Post title',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w800),
+            ),
+          ),
+        ),
+        Expanded(
+          child: Row(
+            children: [
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.only(
+                      top: 4, left: 17, right: 6, bottom: 2),
+                  child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                          'Kevin Hernandez',
+                          style: TextStyle(
+                              color: Colors.grey[400],
+                              fontSize: 19,
+                              fontWeight: FontWeight.w300))),
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.only(
+                  top: 4,
+                  left: 17,
+                ),
+                child: Align(
+                  alignment: Alignment.center,
+                  icon: Icon(Icons.star),
+                      width: 25),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ]),
+    );
+  }
   // static Card cardSocialandEstado(String vista){
   //   if (vista == "SOCIAL") {
   //     return Card(
