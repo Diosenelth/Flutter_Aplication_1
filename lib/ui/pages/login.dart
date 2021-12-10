@@ -39,7 +39,9 @@ class MainLogin extends StatelessWidget {
                       // check for errors
                       if (snapshot.hasError) {
                         print("error ${snapshot.error}");
-                        return const Social();
+                        return const Center(
+                          child: Text('No se pudo conectar'),
+                        );
                       }
                       // Once complete, show your application
 
@@ -55,7 +57,9 @@ class MainLogin extends StatelessWidget {
                       }
 
                       // Otherwise, show something while waiting for initialization complete
-                      return const Social();
+                      return const Center(
+                        child: Text('Intentando conectarse'),
+                      );
                     }))),
       ),
     );
@@ -183,28 +187,24 @@ class _PageState extends State<Login> {
       height: 40.0,
       width: 120,
       child: ElevatedButton(
-          onPressed: () {
-            Get.off(const Social());
-          }
-          // async {
-          //   FocusScope.of(context).requestFocus(FocusNode());
-          //   if (emailController.getEmail.isNotEmpty &&
-          //       emailController.getPass.length >= 8) {
-          //     await _login(emailController.getEmail, emailController.getPass);
-          //   } else if (!emailController.validaremail() ||
-          //       emailController.getEmail.isEmpty) {
-          //     Fluttertoast.showToast(
-          //       msg: 'Email invalido',
-          //       toastLength: Toast.LENGTH_SHORT,
-          //     );
-          //   } else if (emailController.getPass.length < 8) {
-          //     Fluttertoast.showToast(
-          //       msg: 'Contraseña no segura',
-          //       toastLength: Toast.LENGTH_SHORT,
-          //     );
-          //   }
-          // }
-          ,
+          onPressed: () async {
+            FocusScope.of(context).requestFocus(FocusNode());
+            if (emailController.getEmail.isNotEmpty &&
+                emailController.getPass.length >= 8) {
+              await _login(emailController.getEmail, emailController.getPass);
+            } else if (!emailController.validaremail() ||
+                emailController.getEmail.isEmpty) {
+              Fluttertoast.showToast(
+                msg: 'Email invalido',
+                toastLength: Toast.LENGTH_SHORT,
+              );
+            } else if (emailController.getPass.length < 8) {
+              Fluttertoast.showToast(
+                msg: 'Contraseña no segura',
+                toastLength: Toast.LENGTH_SHORT,
+              );
+            }
+          },
           child: Text(texto)),
     );
   }
