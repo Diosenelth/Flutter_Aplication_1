@@ -3,7 +3,7 @@ import 'package:flutter_application_1/model/record.dart';
 import 'package:get/get.dart';
 
 class FirebaseController extends GetxController {
-  var _records = <Record>[].obs;
+  final _records = <Record>[].obs;
 
   List<Record> get entries => _records;
   

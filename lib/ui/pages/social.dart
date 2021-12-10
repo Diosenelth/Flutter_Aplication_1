@@ -8,28 +8,18 @@ import 'package:flutter_application_1/controllers/chat_controller.dart';
 import 'package:flutter_application_1/controllers/email_controller.dart';
 import 'package:flutter_application_1/controllers/firestore_controller.dart';
 import 'package:flutter_application_1/controllers/social_controller.dart';
-import 'package:flutter_application_1/model/message.dart';
-import 'package:flutter_application_1/model/record.dart';
 import 'package:flutter_application_1/providers/icon_provider.dart';
-import 'package:flutter_application_1/ui/pages/chat.dart';
 import 'package:flutter_application_1/ui/pages/chat_ui.dart';
-
 import 'package:get/get.dart';
-import 'package:prompt_dialog/prompt_dialog.dart';
 import 'package:provider/provider.dart';
 
-
-
 import 'login.dart';
-
 
 
     final FirebaseController firebaseController = Get.find();
     EmailController emailController = Get.find();
     AuthenticationController authenticationController = Get.find();
     ChatController chatController = Get.find(); 
-    late ScrollController _scrollController;
-
 
 class Social extends StatefulWidget {
   const Social({Key? key}) : super(key: key);
@@ -76,7 +66,7 @@ class _PageState extends State<Social> {
                 height: 43,
                 child: ElevatedButton(
                   onPressed: (){
-                    Get.to(ChatUi());
+                    Get.to(const ChatUi());
                   },
                   child: Column(
                     children: const [ 
@@ -175,25 +165,6 @@ class _PageState extends State<Social> {
     );
   }
 
-  Widget _buildItem(BuildContext context, Record record) {
-    return Padding(
-      key: ValueKey(record.name),
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey),
-          borderRadius: BorderRadius.circular(5.0),
-        ),
-        child: ListTile(
-          title: Text(record.name),
-          trailing: Text(record.votes.toString()),
-          onTap: () {
-            record.reference.update({'votes': record.votes + 1});
-          },
-        ),
-      ),
-    );
-  }
 
   static List<Widget> _textFields(String vista) {
     return [

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/ui/pages/chat.dart';
 
-void App() => runApp(ChatUi());
+void chatUiApp() => runApp(const ChatUi());
 
 class ChatUi extends StatelessWidget {
+  const ChatUi({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {

@@ -3,7 +3,6 @@ import 'package:flutter_application_1/controllers/authentication_controller.dart
 import 'package:flutter_application_1/controllers/chat_controller.dart';
 import 'package:flutter_application_1/model/message.dart';
 import 'package:get/get.dart';
-import 'package:prompt_dialog/prompt_dialog.dart';
 
 
 AuthenticationController authenticationController = Get.find();
@@ -57,6 +56,7 @@ class _ChatState extends State<Chat> {
       ),
     );
   }
+
   chat(){
     String email = authenticationController.userEmail();
     // print('Current user $uid');
@@ -78,30 +78,6 @@ class _ChatState extends State<Chat> {
       duration: const Duration(milliseconds: 200), curve: Curves.easeInOut);
   }
 
-    Future<void> addBaby(BuildContext context) async {
-    getName(context).then((value) {
-      chatController.sendMsg(value);
-    });
-  }
-
-  Future<String> getName(BuildContext context) async {
-    String? result = await prompt(
-      context,
-      title: const Text('Escribir un mensaje'),
-      initialValue: '',
-      textOK: const Text('Enviar'),
-      textCancel: const Text('Cancelar'),
-      hintText: 'Mensaje',
-      minLines: 1,
-      autoFocus: true,
-      obscureText: false,
-      textCapitalization: TextCapitalization.words,
-    );
-    if (result != null) {
-      return Future.value(result);
-    }
-    return Future.error('cancel');
-  }
     Widget _item(Message element, int posicion, String email) {
     // logInfo('Current user? -> ${uid == element.user} msg -> ${element.text}');
       return Card(

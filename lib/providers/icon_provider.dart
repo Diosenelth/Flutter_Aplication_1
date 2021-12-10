@@ -12,7 +12,6 @@ class IconDarkTheme with ChangeNotifier {
 
   Icon _icond = const Icon(Icons.wb_sunny);
   Brightness _brightness = Brightness.light;
-  ThemeData _theme=lightTheme;
 
   final String _icondark = "dark";
   final String _iconsunny = "sunny";
@@ -25,9 +24,6 @@ class IconDarkTheme with ChangeNotifier {
     
   get brightness => _brightness;
 
-  get theme=>_theme;
-
-
   seticon() {
     if (_icon == _iconsunny) {
       dark();
@@ -37,7 +33,6 @@ class IconDarkTheme with ChangeNotifier {
   }
 
   dark(){
-    _theme=darkTheme;
     _icon = _icondark;
     _icond = Icon(_icons[_icondark]);
     _change(_icon);
@@ -45,7 +40,6 @@ class IconDarkTheme with ChangeNotifier {
   }
 
   light(){
-    _theme=lightTheme;
     _icon = _iconsunny;
     _icond = Icon(_icons[_iconsunny]);
     _change(_icon); 
@@ -73,17 +67,3 @@ class IconDarkTheme with ChangeNotifier {
   }
   
 }
-
-
-ThemeData lightTheme = ThemeData(
-  brightness: Brightness.light,
-  primarySwatch: Colors.indigo,
-  accentColor: Colors.pink,
-  scaffoldBackgroundColor: Color(0xfff1f1f1)
-);
-
-ThemeData darkTheme = ThemeData(
-  brightness: Brightness.dark,
-  primarySwatch: Colors.indigo,
-  accentColor: Colors.pink,
-);

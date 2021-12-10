@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, void_checks
+// ignore_for_file: avoid_print, void_checks, unnecessary_null_comparison
 
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';

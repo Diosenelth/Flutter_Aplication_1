@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_application_1/model/message.dart';
 import 'package:get/get.dart';
