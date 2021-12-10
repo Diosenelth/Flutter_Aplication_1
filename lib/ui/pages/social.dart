@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print
 
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 
 // ignore: import_of_legacy_library_into_null_safe
@@ -21,7 +21,6 @@ import 'package:provider/provider.dart';
 
 
 import 'login.dart';
-import 'ubicacion.dart';
 
 
 
@@ -42,10 +41,10 @@ class Social extends StatefulWidget {
 class _PageState extends State<Social> {
   int _selectedIndex = 0;
 
-  static List cardsUbicar = List.generate(1, (i) => Ubicacion.cardUbicar());
-  static List cardsUbicar2 = List.generate(3, (i) => Ubicacion.cardUbicar2());
-  static List cardsUbicar3 = List.generate(1, (i) => Ubicacion.title());
-  static List cardsActividad = List.of(cardActivity());
+  // static List cardsUbicar = List.generate(1, (i) => Ubicacion.cardUbicar());
+  // static List cardsUbicar2 = List.generate(3, (i) => Ubicacion.cardUbicar2());
+  // static List cardsUbicar3 = List.generate(1, (i) => Ubicacion.title());
+  // static List cardsActividad = List.of(cardActivity());
   // static List cardsSocial = List.generate(4, (i)=> cardSocialandEstado("SOCIAL"));
   //  static List cardsEstado = List.generate(4, (i)=> cardSocialandEstado("ESTADO"));
   static List cardsSocial = List.of(cardSocialandEstado("SOCIAL"));
