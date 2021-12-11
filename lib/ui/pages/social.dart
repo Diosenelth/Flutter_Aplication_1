@@ -384,24 +384,8 @@ class _PageState extends State<Social> {
     }
   }
 
-  Widget textoMenu() {
-    return Container(
-      height: 190,
-      //color:Colors.white,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        border: Border(
-          top: BorderSide(
-            color: Colors.black12,
-            width: 1,
-          ),
-          bottom: BorderSide(
-            color: Colors.black12,
-            width: 1,
-          ),
-        ),
-      ),
-      child: Column(children: [
+  Column textoMenu() {
+    return Column(children: [
         Container(
           padding: const EdgeInsets.only(top: 10, left: 17, bottom: 1),
           child: Align(
@@ -418,8 +402,7 @@ class _PageState extends State<Social> {
             ),
           ),
         ),
-      ]),
-    );
+      ]);
   }
   // static Card cardSocialandEstado(String vista){
   //   if (vista == "SOCIAL") {
