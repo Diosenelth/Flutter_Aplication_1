@@ -18,7 +18,19 @@ import 'registro.dart';
 
 class MainLogin extends StatelessWidget {
   MainLogin({Key? key}) : super(key: key);
-  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp( 
+    // Replace with actual values
+    options: const FirebaseOptions(
+    
+      apiKey: "AIzaSyAHhRsIjUZhxqFGS__HdZkv10dcTphmQwo",
+      authDomain: "app-flutter-4af40.firebaseapp.com",
+      databaseURL: "https://app-flutter-4af40-default-rtdb.firebaseio.com",
+      projectId: "app-flutter-4af40",
+      storageBucket: "app-flutter-4af40.appspot.com",
+      messagingSenderId: "350591926229",
+      appId: "1:350591926229:web:041fa703aa1d8590d2075c",
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
