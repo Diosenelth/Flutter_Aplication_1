@@ -98,8 +98,8 @@ class _PageState extends State<Social> {
             onPressed: () {
               emailController.email("");
               emailController.pass("");
-              authenticationController.logOut();
               Get.off(const Login());
+              authenticationController.logOut();
             },
           ),
         ],
@@ -475,8 +475,8 @@ class _PageState extends State<Social> {
   // }
 
   void _onItemTapped(int index) {
-    setState(() {
+    // setState(() {
       _selectedIndex = index;
-    });
+    // });
   }
 }

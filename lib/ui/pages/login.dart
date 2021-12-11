@@ -234,7 +234,7 @@ class _PageState extends State<Login> {
   }
 
   _login(theEmail, thePassword) async {
-    print('_login $theEmail $thePassword');
+    // print('_login $theEmail $thePassword');
     try {
       await authenticationController.login(theEmail, thePassword);
       Get.off(const Social());
