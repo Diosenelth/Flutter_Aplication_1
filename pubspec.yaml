@@ -37,6 +37,7 @@ dependencies:
   flutter:
     sdk: flutter
   fluttertoast: ^8.0.8
+  geolocator: ^8.0.1
   get: ^4.3.8
   google_fonts: ^2.1.0
   google_maps_flutter: ^0.5.5

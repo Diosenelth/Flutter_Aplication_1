@@ -22,7 +22,6 @@ class MainLogin extends StatelessWidget {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp( 
     // Replace with actual values
     options: const FirebaseOptions(
-    
       apiKey: "AIzaSyAHhRsIjUZhxqFGS__HdZkv10dcTphmQwo",
       authDomain: "app-flutter-4af40.firebaseapp.com",
       databaseURL: "https://app-flutter-4af40-default-rtdb.firebaseio.com",
@@ -35,6 +34,14 @@ class MainLogin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+  _permisos ()async {
+    if(await Permission.location.request().isGranted){
+    }
+    if(await Permission.location.isPermanentlyDenied){
+      openAppSettings();
+    }
+  }
+  _permisos();
     return ChangeNotifierProvider(
       create: (BuildContext context) => IconDarkTheme(),
       child: Consumer<IconDarkTheme>(
@@ -117,7 +124,6 @@ class _PageState extends State<Login> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: _textFields()
-
               ),
             )
           ],
@@ -127,13 +133,7 @@ class _PageState extends State<Login> {
   }
 
 
-  _permisos ()async {
-    if(await Permission.location.request().isGranted){
-    }
-    if(await Permission.location.isPermanentlyDenied){
-      openAppSettings();
-    }
-  } 
+
   List<Widget> _textFields() {
     return [
       // texto("Usuario"),
@@ -149,7 +149,6 @@ class _PageState extends State<Login> {
       const SizedBox(height: 20),
 
       _crearBotones(),
-      _permisos()
     ];
   }
 
