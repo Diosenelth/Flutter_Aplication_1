@@ -71,9 +71,11 @@ class _PageState extends State<Registro> {
       // usuarioField(false,'Usuario'),
       // const SizedBox(height: 10),
       texto("Correo Electronico"),
+      const SizedBox(height: 10),
       emailField(false, 'Correo electronico'),
       const SizedBox(height: 10),
       texto("Contraseña"),
+      const SizedBox(height: 10),
       passField(true, 'Contraseña'),
       const SizedBox(height: 20),
 

@@ -37,7 +37,7 @@ class MainLogin extends StatelessWidget {
   _permisos ()async {
     if(await Permission.location.request().isGranted){
     }
-    if(await Permission.location.isPermanentlyDenied){
+    else if(await Permission.location.isPermanentlyDenied){
       openAppSettings();
     }
   }
