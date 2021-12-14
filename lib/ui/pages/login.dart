@@ -11,6 +11,7 @@ import 'package:flutter_application_1/providers/icon_provider.dart';
 import 'package:flutter_application_1/ui/pages/social.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_central.dart';
@@ -115,7 +116,8 @@ class _PageState extends State<Login> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: _textFields(),
+                children: _textFields()
+
               ),
             )
           ],
@@ -124,6 +126,14 @@ class _PageState extends State<Login> {
     );
   }
 
+
+  _permisos ()async {
+    if(await Permission.location.request().isGranted){
+    }
+    if(await Permission.location.isPermanentlyDenied){
+      openAppSettings();
+    }
+  } 
   List<Widget> _textFields() {
     return [
       // texto("Usuario"),
@@ -138,7 +148,8 @@ class _PageState extends State<Login> {
       passField(true, 'Contraseña'),
       const SizedBox(height: 20),
 
-      _crearBotones()
+      _crearBotones(),
+      _permisos()
     ];
   }
 
