@@ -10,16 +10,20 @@ import 'package:flutter_application_1/controllers/firestore_controller.dart';
 import 'package:flutter_application_1/controllers/social_controller.dart';
 import 'package:flutter_application_1/providers/icon_provider.dart';
 import 'package:flutter_application_1/ui/pages/chat_ui.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import 'login.dart';
 
 
-    final FirebaseController firebaseController = Get.find();
-    EmailController emailController = Get.find();
-    AuthenticationController authenticationController = Get.find();
-    ChatController chatController = Get.find(); 
+final FirebaseController firebaseController = Get.find();
+EmailController emailController = Get.find();
+AuthenticationController authenticationController = Get.find();
+ChatController chatController = Get.find(); 
+// Position? position;
+String currentLocation="";
+
 
 class Social extends StatefulWidget {
   const Social({Key? key}) : super(key: key);
@@ -40,11 +44,9 @@ class _PageState extends State<Social> {
   static List cardsSocial = List.of(cardSocialandEstado("SOCIAL"));
   static List cardsEstado = List.of(cardSocialandEstado("ESTADO"));
 
-
   @override
   Widget build(BuildContext context) {
     final pricon = Provider.of<IconDarkTheme>(context);
-
     final List<Widget> _widgetOptions = <Widget>[
       ListView(
         children: [...cardsActividad],
@@ -71,6 +73,23 @@ class _PageState extends State<Social> {
                   child: Column(
                     children: const [ 
                       Text("Chat"),Icon(Icons.chat)
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              Text("Ubicacion:\n " + currentLocation),
+              const SizedBox(height: 50),
+                SizedBox(
+                width: 200,
+                height: 40,
+                child: ElevatedButton(
+                  onPressed: (){
+                    _getCurrentLocation();
+                  },
+                  child: Column(
+                    children: const [ 
+                      Text("Obtener Localizacion"),Icon(Icons.location_on)
                     ],
                   ),
                 ),
@@ -165,6 +184,28 @@ class _PageState extends State<Social> {
     );
   }
 
+  void _getCurrentLocation() async {
+    LocationPermission permission;
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        setState(() {
+          currentLocation ="Permission Denied";
+        });
+      }else{
+        var position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+        setState(() {
+          currentLocation ="latitude: ${position.latitude}" + " , " + "Logitude: ${position.longitude}";
+        });
+      }
+    }else{
+      var position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+      setState(() {
+        currentLocation ="latitude: ${position.latitude}" + " , " + "Logitude: ${position.longitude}";
+      });
+    }
+  }
 
   static List<Widget> _textFields(String vista) {
     return [
