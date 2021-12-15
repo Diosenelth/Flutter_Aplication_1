@@ -7,9 +7,11 @@ import 'package:flutter_application_1/controllers/authentication_controller.dart
 import 'package:flutter_application_1/controllers/chat_controller.dart';
 import 'package:flutter_application_1/controllers/email_controller.dart';
 import 'package:flutter_application_1/controllers/firestore_controller.dart';
+import 'package:flutter_application_1/controllers/location_controller.dart';
 import 'package:flutter_application_1/controllers/social_controller.dart';
 import 'package:flutter_application_1/providers/icon_provider.dart';
 import 'package:flutter_application_1/ui/pages/chat_ui.dart';
+import 'package:flutter_application_1/ui/pages/ubicacion.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +23,7 @@ final FirebaseController firebaseController = Get.find();
 EmailController emailController = Get.find();
 AuthenticationController authenticationController = Get.find();
 ChatController chatController = Get.find(); 
-// Position? position;
+LocationController locationController=Get.find();
 String currentLocation="";
 
 
@@ -94,6 +96,8 @@ class _PageState extends State<Social> {
                   ),
                 ),
               ),
+              const SizedBox(height: 50),
+              // const Ubicacion(),
             ]
           ),
         ]
@@ -196,13 +200,16 @@ class _PageState extends State<Social> {
       }else{
         var position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
         setState(() {
-          currentLocation ="latitude: ${position.latitude}" + " , " + "Logitude: ${position.longitude}";
+          currentLocation ="latitude: ${position.latitude} , Logitude: ${position.longitude}";
+        locationController.sendUbicacion(authenticationController.userEmail(), position.latitude.toString(), position.longitude.toString());
         });
       }
     }else{
       var position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
       setState(() {
-        currentLocation ="latitude: ${position.latitude}" + " , " + "Logitude: ${position.longitude}";
+        currentLocation ="Latitud: ${position.latitude} , Longitud: ${position.longitude}";
+        // locationController.sendUbicacion(authenticationController.userEmail(), position.latitude.toString(), position.longitude.toString());
+
       });
     }
   }

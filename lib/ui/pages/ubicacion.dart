@@ -2,143 +2,74 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/controllers/authentication_controller.dart';
+import 'package:flutter_application_1/controllers/location_controller.dart';
+import 'package:flutter_application_1/model/location.dart';
+import 'package:get/get.dart';
+
+LocationController location=Get.find();
+AuthenticationController authenticationController = Get.find();
 
 
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-class Ubicacion extends StatelessWidget {
+class Ubicacion extends StatefulWidget {
   const Ubicacion({Key? key}) : super(key: key);
 
   @override
+  State<Ubicacion> createState() => _UbicacionState();
+}
+
+class _UbicacionState extends State<Ubicacion> {
+
+  @override
+  void initState() {
+    super.initState();
+    location.start();
+  }
+
+  @override
+  void dispose() {
+    location.stop();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(body: ListView());
-  }
-
-  static Card title() {
-    return Card(
-        child: Container(
-      margin: const EdgeInsets.all(2),
-      height: 30,
-      decoration: const BoxDecoration(color: Colors.blue),
-      child: const Text(
-        'EVENTOS CERCA DE TI',
-        style: TextStyle(color: Colors.white, fontSize: 20),
-        textAlign: TextAlign.center,
-      ),
-
-      /*tileColor: Colors.white,
-              title: Text('EVENTOS CERCA DE TI', textAlign: TextAlign.center),
-              tileColor: Colors.white,*/
-    ));
-  }
-
-  static Card cardUbicar2() {
-    return Card(
-      margin: const EdgeInsets.all(10.0),
-      elevation: 5.0,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              TextButton(
-                child: const Icon(Icons.note_outlined),
-                onPressed: () {/*...*/},
-              ),
-              const SizedBox(width: 8),
-            ],
-          ),
-          const ListTile(
-            title: Text('11DIC - SALON DEL LIBRO INFANTIL',
-                textAlign: TextAlign.center),
-            subtitle: Text(
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer est lacus, tincidunt vitae mi quis'
-                'eleifend porttitor felis. Cras vitae dolor vitae arcu pellentesque maximus a sit amet erat. Aliquam elementum pulvinar ex,'
-                'vehicula metus, at lobortis mi. Etiam luctus commodo rhoncus. Maecenas tincidunt elementum libero, eu vestibulum nisi egestas vitae.'),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: const <Widget>[
-              Text('Experiencia: '),
-              //const SizedBox(width: 25),
-              Text('Pago: '),
-            ],
-          ),
-        ],
-      ),
+    return  Center(
+      child: loc(),
     );
   }
 
-  static Card cardUbicar() {
-    // double pinPillPosition = -100;
-    // String pinPath = '';
-    String foto = 'images/AV1.png';
-    LatLng ubica = const LatLng(0, 0);
-    String locationName = 'MI UBICACION';
-    Color labelColor = Colors.red;
 
-    return Card(
-      child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Container(
-            margin: const EdgeInsets.all(20),
-            height: 70,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: const BorderRadius.all(Radius.circular(50)),
-                boxShadow: <BoxShadow>[
-                  BoxShadow(
-                      blurRadius: 20,
-                      offset: Offset.zero,
-                      color: Colors.grey.withOpacity(0.5))
-                ]),
-            child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    width: 50,
-                    height: 50,
-                    margin: const EdgeInsets.only(left: 10),
-                    child:
-                        ClipOval(child: Image.asset(foto, fit: BoxFit.cover)),
-                  ),
-                  Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.only(left: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(locationName,
-                              style: TextStyle(color: labelColor)),
-                          Text('Latitud: ${ubica.latitude.toString()}',
-                              style: const TextStyle(
-                                  fontSize: 12, color: Colors.grey)),
-                          Text('Longitud: ${ubica.longitude.toString()}',
-                              style: const TextStyle(
-                                  fontSize: 12, color: Colors.grey)),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: Row(
-                        children: [
-                          TextButton(
-                              onPressed: () => {},
-                              child: const Text('Buscar Eventos',
-                                  style: TextStyle(
-                                      fontSize: 18, color: Colors.redAccent)))
-                        ],
-                      )),
-                ]),
+  loc(){
+    String email = authenticationController.userEmail();
+        return GetX<LocationController>(builder: (controller) {
+      return ListView.builder(
+        itemCount: location.ubicacion.length,
+        itemBuilder: (context, index) {
+          var element = location.ubicacion[index];
+          return _item(element, index, email);
+        },
+      );
+    });
+  }
+
+
+      Widget _item(Location element, int posicion, String email) {
+    // logInfo('Current user? -> ${uid == element.user} msg -> ${element.text}');
+      return Card(
+        margin: const EdgeInsets.all(4.0),
+        color: email == element.user ? Colors.blue[400] : Colors.grey[500],
+        child: ListTile(
+          title: Text(
+            "Ubicacion: "+element.latitud+" "+element.longitud,
+            textAlign: email == element.user ? TextAlign.right : TextAlign.left,
+          ),
+          subtitle: Text(
+            element.user,
+            textAlign: email == element.user ? TextAlign.right : TextAlign.left,
           ),
         ),
-      ]),
-    );
+      );
   }
+
 }

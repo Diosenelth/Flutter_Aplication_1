@@ -5,6 +5,7 @@ import 'package:flutter_application_1/controllers/authentication_controller.dart
 import 'package:flutter_application_1/controllers/chat_controller.dart';
 import 'package:flutter_application_1/controllers/email_controller.dart';
 import 'package:flutter_application_1/controllers/firestore_controller.dart';
+import 'package:flutter_application_1/controllers/location_controller.dart';
 import 'package:flutter_application_1/controllers/registro_controller.dart';
 import 'package:flutter_application_1/controllers/social_controller.dart';
 import 'package:flutter_application_1/providers/icon_provider.dart';
@@ -65,6 +66,7 @@ class MainLogin extends StatelessWidget {
                         Get.put(FirebaseController());
                         Get.put(ChatController());
                         Get.put(SocialController());
+                        Get.put(LocationController());
                         return const FirebaseCentral();
                       }
 
