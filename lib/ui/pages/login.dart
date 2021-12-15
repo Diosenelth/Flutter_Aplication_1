@@ -37,7 +37,11 @@ class MainLogin extends StatelessWidget {
   _permisos ()async {
     if(await Permission.location.request().isGranted){
     }
-    else if(await Permission.location.isPermanentlyDenied){
+    else if(await Permission.location.isDenied || await Permission.location.isPermanentlyDenied){
+        Fluttertoast.showToast(
+          msg: 'Permisos no aceptados',
+          toastLength: Toast.LENGTH_LONG,
+        );
       openAppSettings();
     }
   }
