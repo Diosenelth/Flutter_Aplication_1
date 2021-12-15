@@ -81,8 +81,8 @@ class _PageState extends State<Social> {
               Text("Ubicacion:\n " + currentLocation),
               const SizedBox(height: 50),
                 SizedBox(
-                width: 200,
-                height: 40,
+                width: 170,
+                height: 42,
                 child: ElevatedButton(
                   onPressed: (){
                     _getCurrentLocation();
