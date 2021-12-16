@@ -9,6 +9,7 @@ import 'package:flutter_application_1/controllers/email_controller.dart';
 import 'package:flutter_application_1/controllers/firestore_controller.dart';
 import 'package:flutter_application_1/controllers/location_controller.dart';
 import 'package:flutter_application_1/controllers/social_controller.dart';
+import 'package:flutter_application_1/model/location.dart';
 import 'package:flutter_application_1/providers/icon_provider.dart';
 import 'package:flutter_application_1/ui/pages/chat_ui.dart';
 import 'package:flutter_application_1/ui/pages/ubicacion.dart';
@@ -36,7 +37,6 @@ class Social extends StatefulWidget {
 
 class _PageState extends State<Social> {
   int _selectedIndex = 0;
-
   // static List cardsUbicar = List.generate(1, (i) => Ubicacion.cardUbicar());
   // static List cardsUbicar2 = List.generate(3, (i) => Ubicacion.cardUbicar2());
   // static List cardsUbicar3 = List.generate(1, (i) => Ubicacion.title());
@@ -60,6 +60,7 @@ class _PageState extends State<Social> {
         children: [..._textFields("ESTADO"), ...cardsEstado],
       ),
       ListView(
+        shrinkWrap: false,
         children:[
           Column(
             children: [
@@ -90,16 +91,16 @@ class _PageState extends State<Social> {
                     _getCurrentLocation();
                   },
                   child: Column(
-                    children: const [ 
+                    children: const [
                       Text("Obtener Localizacion"),Icon(Icons.location_on)
                     ],
                   ),
                 ),
               ),
               const SizedBox(height: 50),
-              // const Ubicacion(),
             ]
           ),
+          const Ubicacion(),
         ]
       ),
     ];
@@ -208,7 +209,7 @@ class _PageState extends State<Social> {
       var position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
       setState(() {
         currentLocation ="Latitud: ${position.latitude} , Longitud: ${position.longitude}";
-        // locationController.sendUbicacion(authenticationController.userEmail(), position.latitude.toString(), position.longitude.toString());
+        locationController.sendUbicacion(authenticationController.userEmail(), position.latitude.toString(), position.longitude.toString());
 
       });
     }
@@ -509,5 +510,38 @@ class _PageState extends State<Social> {
     // setState(() {
       _selectedIndex = index;
     // });
+  }
+
+    loc(){
+    String email = authenticationController.userEmail();
+      return GetX<LocationController>(builder: (controller) {
+        return ListView.builder(
+          shrinkWrap: true,
+          itemCount: locationController.ubicacion.length,
+          itemBuilder: (context, index) {
+            var element = locationController.ubicacion[index];
+            return _item(element, index, email);
+          },
+        );
+    });
+  }
+
+
+  Widget _item(Location element, int posicion, String email) {
+    // logInfo('Current user? -> ${uid == element.user} msg -> ${element.text}');
+    return Card(
+      margin: const EdgeInsets.all(4.0),
+      color: email == element.user ? Colors.blue[400] : Colors.grey[500],
+      child: ListTile(
+        title: Text(
+          "Ubicacion: "+element.latitud+" "+element.longitud,
+          textAlign: email == element.user ? TextAlign.right : TextAlign.left,
+        ),
+        subtitle: Text(
+          element.user,
+          textAlign: email == element.user ? TextAlign.right : TextAlign.left,
+        ),
+      ),
+    );
   }
 }

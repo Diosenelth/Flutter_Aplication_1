@@ -44,6 +44,7 @@ class _UbicacionState extends State<Ubicacion> {
     String email = authenticationController.userEmail();
         return GetX<LocationController>(builder: (controller) {
       return ListView.builder(
+        shrinkWrap: true,
         itemCount: location.ubicacion.length,
         itemBuilder: (context, index) {
           var element = location.ubicacion[index];
