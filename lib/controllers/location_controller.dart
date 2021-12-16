@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_print
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_application_1/model/location.dart';
 import 'package:get/get.dart';
