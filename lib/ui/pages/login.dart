@@ -38,7 +38,7 @@ class MainLogin extends StatelessWidget {
   }
   _permisos();
     return ChangeNotifierProvider(
-      create: (BuildContext context) => IconDarkTheme(),
+      create: (_) => IconDarkTheme(),
       child: Consumer<IconDarkTheme>(
         builder: (context, theme, _) => GetMaterialApp(
             theme: ThemeData(
