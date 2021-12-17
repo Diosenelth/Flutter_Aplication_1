@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_print
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/controllers/authentication_controller.dart';
 import 'package:flutter_application_1/controllers/chat_controller.dart';
@@ -9,7 +11,6 @@ import 'package:flutter_application_1/controllers/location_controller.dart';
 import 'package:flutter_application_1/controllers/registro_controller.dart';
 import 'package:flutter_application_1/controllers/social_controller.dart';
 import 'package:flutter_application_1/providers/icon_provider.dart';
-import 'package:flutter_application_1/providers/theme.dart';
 import 'package:flutter_application_1/ui/pages/social.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -68,6 +69,7 @@ class MainLogin extends StatelessWidget {
                         Get.put(ChatController());
                         Get.put(SocialController());
                         Get.put(LocationController());
+
                         return const FirebaseCentral();
                       }
 
@@ -93,6 +95,11 @@ class _PageState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     // final pricon = Provider.of<IconDarkTheme>(context);
+    // Timer(const Duration(milliseconds: 400), () {
+    //   setState((){
+    //     pricon.icon;
+    //   });
+    // });
 
     return Scaffold(
       appBar: AppBar(

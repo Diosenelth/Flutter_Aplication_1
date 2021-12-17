@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_final_fields
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,7 +24,10 @@ class IconDarkTheme with ChangeNotifier {
     return _icond;
     }
     
-  get brightness => _brightness;
+  get brightness {
+    icon;
+    return _brightness;
+  }
 
   seticon() {
     if (_icon == _iconsunny) {
@@ -51,7 +56,7 @@ class IconDarkTheme with ChangeNotifier {
     notifyListeners();
   }
 
-  void obtener() async {
+  obtener() async {
     preferences=await SharedPreferences.getInstance();
     _icon=preferences?.getString("color")??("sunny");
     if (_icon == _iconsunny) {

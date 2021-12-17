@@ -1,4 +1,6 @@
 // ignore_for_file: avoid_print
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_application_1/controllers/authentication_controller.dart';
@@ -47,6 +49,11 @@ class _PageState extends State<Social> {
   @override
   Widget build(BuildContext context) {
     final pricon = Provider.of<IconDarkTheme>(context);
+    // Timer(const Duration(milliseconds: 400), () {
+    //   setState((){
+    //     pricon.icon;
+    //   });
+    // });
     final List<Widget> _widgetOptions = <Widget>[
       ListView(
         children: [...cardsActividad],
