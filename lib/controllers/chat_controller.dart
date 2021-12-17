@@ -29,7 +29,7 @@ class ChatController extends GetxController {
   }
 
   _onEntryAdded(Event event) {
-    print("Something was added");
+    // print("Something was added");
     messages.add(Message.fromSnapshot(event.snapshot));
   }
 
