@@ -1,5 +1,3 @@
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:email_validator/email_validator.dart';
 import 'package:get/get.dart';
 
 class EmailController extends GetxController {
@@ -17,5 +15,22 @@ class EmailController extends GetxController {
     _clave.value = pass;
   }
 
-  bool validaremail() => EmailValidator.validate(_email.value);
+
+
+
+  bool isEmail(String string) {
+  // Null or empty string is invalid
+  if (string == null || string.isEmpty) {
+    return false;
+  }
+
+  const pattern = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
+  final regExp = RegExp(pattern);
+
+  if (!regExp.hasMatch(string)) {
+    return false;
+  }
+  return true;
+}
+  // bool validaremail() => EmailValidator.validate(_email.value);
 }

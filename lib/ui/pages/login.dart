@@ -207,7 +207,7 @@ class _PageState extends State<Login> {
             if (emailController.getEmail.isNotEmpty &&
                 emailController.getPass.length >= 8) {
               await _login(emailController.getEmail, emailController.getPass);
-            } else if (!emailController.validaremail() ||
+            } else if (emailController.getEmail.length<10 ||
                 emailController.getEmail.isEmpty) {
               Fluttertoast.showToast(
                 msg: 'Email invalido',

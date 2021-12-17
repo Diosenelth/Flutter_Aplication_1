@@ -165,10 +165,10 @@ class _PageState extends State<Registro> {
       child: ElevatedButton(
         onPressed: () {
           FocusScope.of(context).requestFocus(FocusNode());
-          if (registroController.validarEmail() &&
+          if (registroController.isEmail(registroController.getEmail) &&
               registroController.getPass.length >= 8) {
             _signup(registroController.getEmail, registroController.getPass);
-          } else if (!registroController.validarEmail()) {
+          } else if (registroController.getEmail.length<10) {
             Fluttertoast.showToast(
               msg: 'Email Invalido',
               toastLength: Toast.LENGTH_SHORT,

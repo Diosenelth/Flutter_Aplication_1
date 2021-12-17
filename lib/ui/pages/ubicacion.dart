@@ -34,15 +34,13 @@ class _UbicacionState extends State<Ubicacion> {
 
   @override
   Widget build(BuildContext context) {
-    return  Center(
-      child: loc(),
-    );
+    return  loc();
   }
 
 
   loc(){
     String email = authenticationController.userEmail();
-        return GetX<LocationController>(builder: (controller) {
+    return GetX<LocationController>(builder: (controller) {
       return ListView.builder(
         shrinkWrap: true,
         itemCount: location.ubicacion.length,

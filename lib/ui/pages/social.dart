@@ -1,8 +1,6 @@
 // ignore_for_file: avoid_print
 import 'package:flutter/material.dart';
 
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:flip_box_bar/flip_box_bar.dart';
 import 'package:flutter_application_1/controllers/authentication_controller.dart';
 import 'package:flutter_application_1/controllers/chat_controller.dart';
 import 'package:flutter_application_1/controllers/email_controller.dart';
@@ -128,36 +126,38 @@ class _PageState extends State<Social> {
           ),
         ],
       ),
+      extendBody: false,
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
-      bottomNavigationBar: FlipBoxBar(
-        selectedIndex: _selectedIndex,
-        items: [
-          FlipBarItem(
-              icon: const Icon(Icons.notifications),
-              text: const Text("Actividades"),
-              frontColor: Colors.red[900],
-              backColor: Colors.red[500]),
-          FlipBarItem(
-              icon: const Icon(Icons.add),
-              text: const Text("Social"),
-              frontColor: Colors.blue[900],
-              backColor: Colors.blue[500]),
-          FlipBarItem(
-              icon: const Icon(Icons.chrome_reader_mode),
-              text: const Text("Estados"),
-              frontColor: Colors.purple[900],
-              backColor: Colors.purple[500]),
-          FlipBarItem(
-              icon: const Icon(Icons.print),
-              text: const Text("Menu"),
-              frontColor: Colors.pink[900],
-              backColor: Colors.pink[500]),
-        ],
-        onIndexChanged: _onItemTapped,
-      ),
-/*
+      bottomNavigationBar:
+      //  FlipBoxBar(
+      //   selectedIndex: _selectedIndex,
+      //   items: [
+      //     FlipBarItem(
+      //         icon: const Icon(Icons.notifications),
+      //         text: const Text("Actividades"),
+      //         frontColor: Colors.red[900],
+      //         backColor: Colors.red[500]),
+      //     FlipBarItem(
+      //         icon: const Icon(Icons.add),
+      //         text: const Text("Social"),
+      //         frontColor: Colors.blue[900],
+      //         backColor: Colors.blue[500]),
+      //     FlipBarItem(
+      //         icon: const Icon(Icons.chrome_reader_mode),
+      //         text: const Text("Estados"),
+      //         frontColor: Colors.purple[900],
+      //         backColor: Colors.purple[500]),
+      //     FlipBarItem(
+      //         icon: const Icon(Icons.print),
+      //         text: const Text("Menu"),
+      //         frontColor: Colors.pink[900],
+      //         backColor: Colors.pink[500]),
+      //   ],
+      //   onIndexChanged: _onItemTapped,
+      // ),
+
          BottomNavigationBar (
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
@@ -166,12 +166,12 @@ class _PageState extends State<Social> {
               backgroundColor:Colors.red[900],
               ),
               BottomNavigationBarItem(
-              icon: const Icon(Icons.done),
+              icon: const Icon(Icons.add),
               label: "Social",
               backgroundColor:Colors.blue[800],
               ),
               BottomNavigationBarItem(
-              icon: const Icon(Icons.edit),
+              icon: const Icon(Icons.chrome_reader_mode),
               label: "Estados",
               backgroundColor:Colors.purple[800],
               ),
@@ -185,7 +185,7 @@ class _PageState extends State<Social> {
           selectedItemColor: Colors.amber[800],
           unselectedItemColor: Colors.black,
           onTap: _onItemTapped,
-          ),*/
+          ),
     );
   }
 
@@ -202,14 +202,14 @@ class _PageState extends State<Social> {
         var position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
         setState(() {
           currentLocation ="latitude: ${position.latitude} , Logitude: ${position.longitude}";
-        locationController.sendUbicacion(authenticationController.userEmail(), position.latitude.toString(), position.longitude.toString());
+        // locationController.sendUbicacion(authenticationController.userEmail(), position.latitude.toString(), position.longitude.toString());
         });
       }
     }else{
       var position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
       setState(() {
         currentLocation ="Latitud: ${position.latitude} , Longitud: ${position.longitude}";
-        locationController.sendUbicacion(authenticationController.userEmail(), position.latitude.toString(), position.longitude.toString());
+        // locationController.sendUbicacion(authenticationController.userEmail(), position.latitude.toString(), position.longitude.toString());
 
       });
     }
@@ -507,9 +507,9 @@ class _PageState extends State<Social> {
   // }
 
   void _onItemTapped(int index) {
-    // setState(() {
+    setState(() {
       _selectedIndex = index;
-    // });
+    });
   }
 
     loc(){
