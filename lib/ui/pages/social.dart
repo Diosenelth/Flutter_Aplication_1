@@ -110,9 +110,9 @@ class _PageState extends State<Social> {
           IconButton(
             icon: pricon.icon,
             onPressed: () {
-              // setState(() {
+              setState(() {
                 pricon.seticon();
-              // });
+              });
             },
           ),
           IconButton(

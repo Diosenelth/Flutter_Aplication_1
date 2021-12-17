@@ -9,6 +9,7 @@ import 'package:flutter_application_1/controllers/location_controller.dart';
 import 'package:flutter_application_1/controllers/registro_controller.dart';
 import 'package:flutter_application_1/controllers/social_controller.dart';
 import 'package:flutter_application_1/providers/icon_provider.dart';
+import 'package:flutter_application_1/providers/theme.dart';
 import 'package:flutter_application_1/ui/pages/social.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -91,20 +92,23 @@ class _PageState extends State<Login> {
   AuthenticationController authenticationController = Get.find();
   @override
   Widget build(BuildContext context) {
-    final pricon = Provider.of<IconDarkTheme>(context);
+    // final pricon = Provider.of<IconDarkTheme>(context);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text("Iniciar sesion"),
         actions: <Widget>[
+          Consumer<IconDarkTheme>(
+            builder: (context,notifier,child)=>
           IconButton(
-            icon: pricon.icon,
+            icon: notifier.icon,
             onPressed: () {
-              // setState(() {
-                pricon.seticon();
-              // });
+              setState(() {
+                notifier.seticon();
+              });
             },
           ),
+          )
         ],
       ),
       body: Center(
