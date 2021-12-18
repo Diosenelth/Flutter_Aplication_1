@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_final_fields
 
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';

@@ -1,5 +1,6 @@
+
+
 // ignore_for_file: avoid_print
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 
@@ -9,7 +10,6 @@ import 'package:flutter_application_1/controllers/email_controller.dart';
 import 'package:flutter_application_1/controllers/firestore_controller.dart';
 import 'package:flutter_application_1/controllers/location_controller.dart';
 import 'package:flutter_application_1/controllers/social_controller.dart';
-import 'package:flutter_application_1/model/location.dart';
 import 'package:flutter_application_1/providers/icon_provider.dart';
 import 'package:flutter_application_1/ui/pages/chat_ui.dart';
 import 'package:flutter_application_1/ui/pages/ubicacion.dart';
@@ -69,40 +69,59 @@ class _PageState extends State<Social> {
         children:[
           Column(
             children: [
-              textoMenu(),
+              // textoMenu(),
               const SizedBox(height: 20),
               SizedBox(
-                width: 70,
+                width: 120,
                 height: 43,
                 child: ElevatedButton(
                   onPressed: (){
                     Get.to(const ChatUi());
                   },
-                  child: Column(
-                    children: const [ 
-                      Text("Chat"),Icon(Icons.chat)
-                    ],
-                  ),
+                  child:Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: const [
+                        Text("Chat"),
+                        Icon(Icons.chat)
+                        ],
+                      )
                 ),
               ),
               const SizedBox(height: 20),
-              Text("Ubicacion:\n " + currentLocation),
-              const SizedBox(height: 50),
                 SizedBox(
-                width: 170,
-                height: 42,
                 child: ElevatedButton(
-                  onPressed: (){
-                    _getCurrentLocation();
-                  },
-                  child: Column(
-                    children: const [
-                      Text("Obtener Localizacion"),Icon(Icons.location_on)
-                    ],
-                  ),
+                  onPressed: ()=>_getCurrentLocation(),
+                  child:const Text("¿Donde estoy?")
                 ),
               ),
-              const SizedBox(height: 50),
+              Container(
+                decoration: BoxDecoration(color: Colors.teal[200]),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        const Icon(Icons.location_on),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text('Su Ubicacion es:\n '+ currentLocation,),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                      ],
+                    ),
+                  ],
+                )
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {},
+                child: const Text("CONTACTOS CERCA"),
+              ),
             ]
           ),
           const Ubicacion(),
@@ -138,32 +157,7 @@ class _PageState extends State<Social> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar:
-      //  FlipBoxBar(
-      //   selectedIndex: _selectedIndex,
-      //   items: [
-      //     FlipBarItem(
-      //         icon: const Icon(Icons.notifications),
-      //         text: const Text("Actividades"),
-      //         frontColor: Colors.red[900],
-      //         backColor: Colors.red[500]),
-      //     FlipBarItem(
-      //         icon: const Icon(Icons.add),
-      //         text: const Text("Social"),
-      //         frontColor: Colors.blue[900],
-      //         backColor: Colors.blue[500]),
-      //     FlipBarItem(
-      //         icon: const Icon(Icons.chrome_reader_mode),
-      //         text: const Text("Estados"),
-      //         frontColor: Colors.purple[900],
-      //         backColor: Colors.purple[500]),
-      //     FlipBarItem(
-      //         icon: const Icon(Icons.print),
-      //         text: const Text("Menu"),
-      //         frontColor: Colors.pink[900],
-      //         backColor: Colors.pink[500]),
-      //   ],
-      //   onIndexChanged: _onItemTapped,
-      // ),
+
 
          BottomNavigationBar (
           items: <BottomNavigationBarItem>[
@@ -208,7 +202,7 @@ class _PageState extends State<Social> {
       }else{
         var position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
         setState(() {
-          currentLocation ="latitude: ${position.latitude} , Logitude: ${position.longitude}";
+          currentLocation ="Latitud: ${position.latitude} , Longitud: ${position.longitude}";
         // locationController.sendUbicacion(authenticationController.userEmail(), position.latitude.toString(), position.longitude.toString());
         });
       }
@@ -519,36 +513,6 @@ class _PageState extends State<Social> {
     });
   }
 
-    loc(){
-    String email = authenticationController.userEmail();
-      return GetX<LocationController>(builder: (controller) {
-        return ListView.builder(
-          shrinkWrap: true,
-          itemCount: locationController.ubicacion.length,
-          itemBuilder: (context, index) {
-            var element = locationController.ubicacion[index];
-            return _item(element, index, email);
-          },
-        );
-    });
-  }
 
 
-  Widget _item(Location element, int posicion, String email) {
-    // logInfo('Current user? -> ${uid == element.user} msg -> ${element.text}');
-    return Card(
-      margin: const EdgeInsets.all(4.0),
-      color: email == element.user ? Colors.blue[400] : Colors.grey[500],
-      child: ListTile(
-        title: Text(
-          "Ubicacion: "+element.latitud+" "+element.longitud,
-          textAlign: email == element.user ? TextAlign.right : TextAlign.left,
-        ),
-        subtitle: Text(
-          element.user,
-          textAlign: email == element.user ? TextAlign.right : TextAlign.left,
-        ),
-      ),
-    );
-  }
 }
