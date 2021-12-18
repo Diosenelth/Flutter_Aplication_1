@@ -42,7 +42,7 @@ void main(){
     
   });
 
-  testWidgets("widget de social", (WidgetTester tester) async {
+  testWidgets("widget de ubicacion", (WidgetTester tester) async {
     const ubicacion = Ubicacion();
     await tester.pumpWidget(ubicacion);
 
